@@ -13,6 +13,7 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
   level               = "System"
   payloads            = file("${path.root}/payloads/008-IDM-JamfConnect-Login-ALL.plist")
   redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
   
   scope {
     all_computers = true
