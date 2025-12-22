@@ -4,6 +4,7 @@
 <dict>
 	<key>PayloadContent</key>
 	<key>PayloadDisplayName</key>
+    <string>Jamf Connect Login Configuration</string>
 	<key>PayloadIdentifier</key>
 	<string>PLACEHOLDER-UUID</string>
 	<key>PayloadOrganization</key>
