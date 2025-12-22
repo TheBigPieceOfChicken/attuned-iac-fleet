@@ -9,7 +9,7 @@
 	<key>PayloadDisplayName</key>
 	<string>008-IDM-JamfConnect-Login-ALL</string>
 	<key>PayloadIdentifier</key>
-	<string>com.jamfconnect.login</string>
+	<string>PLACEHOLDER-UUID</string>
 	<key>PayloadOrganization</key>
 	<string>Attuned IT</string>
 	<key>PayloadScope</key>
