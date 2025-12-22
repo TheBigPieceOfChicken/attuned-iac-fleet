@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<!-- Jamf Connect Login configuration will be populated via terraform import -->
+	</array>
+	<key>PayloadDisplayName</key>
+	<string>008-IDM-JamfConnect-Login-ALL</string>
+	<key>PayloadIdentifier</key>
+	<string>com.jamfconnect.login</string>
+	<key>PayloadOrganization</key>
+	<string>Attuned IT</string>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>PLACEHOLDER-UUID</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
