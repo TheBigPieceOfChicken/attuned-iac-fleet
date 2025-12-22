@@ -22,7 +22,6 @@ terraform {
 provider "google" {
   project = "jamf-pro-oidc-480503"
   region  = "us-central1"
-  impersonate_service_account = "scalr-terraform-service-account@jamf-pro-oidc-480503.iam.gserviceaccount.com"
 }
 
 # Data sources to fetch secrets from Google Secret Manager
