@@ -40,7 +40,7 @@ resource "jamfpro_policy" "patch_jamf_connect" {
   category_id               = -1  # Will be updated after category import
   site_id                   = -1
 
-  packages {
+  package {
     id                      = -1  # Reference to Jamf Connect package
     action                  = "Install"
     fill_user_template      = false
@@ -77,7 +77,7 @@ resource "jamfpro_policy" "start_jamf_connect_notify" {
   category_id               = -1  # Provisioning category
   site_id                   = -1
 
-  scripts {
+  script {
     id                      = -1  # Reference to Jamf Connect Notify script
     priority                = "After"
     parameter4              = ""
