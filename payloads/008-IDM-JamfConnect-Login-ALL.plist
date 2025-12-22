@@ -3,11 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>PayloadContent</key>
-	<array>
-		<!-- Jamf Connect Login configuration will be populated via terraform import -->
-	</array>
 	<key>PayloadDisplayName</key>
-	<string>008-IDM-JamfConnect-Login-ALL</string>
 	<key>PayloadIdentifier</key>
 	<string>PLACEHOLDER-UUID</string>
 	<key>PayloadOrganization</key>
