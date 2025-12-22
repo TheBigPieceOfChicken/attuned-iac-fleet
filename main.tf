@@ -42,12 +42,12 @@ resource "jamfpro_policy" "patch_jamf_connect" {
 
   payloads {
     packages {
+      distribution_point = "default"
       package {
         id                          = -1 # Reference to Jamf Connect package
         action                      = "Install"
         fill_user_template          = false
-        fill_existing_users         = false
-        update_autorun              = false
+        fill_existing_user_template = false
       }
     }
   }
@@ -57,11 +57,11 @@ resource "jamfpro_policy" "patch_jamf_connect" {
     all_jss_users = false
   }
 
-  scope_limitations {
+  limitations {
     network_segment_ids = []
   }
 
-  scope_exclusions {
+  exclusions {
     computer_group_ids = [] # Exclude "Enrolled Today" group
   }
 }
@@ -87,18 +87,16 @@ resource "jamfpro_policy" "start_jamf_connect_notify" {
 
   payloads {
     scripts {
-      script {
-        id         = -1 # Reference to Jamf Connect Notify script
-        priority   = "After"
-        parameter4 = ""
-        parameter5 = ""
-        parameter6 = ""
-        parameter7 = ""
-        parameter8 = ""
-        parameter9 = ""
-        parameter10 = ""
-        parameter11 = ""
-      }
+      id         = -1 # Reference to Jamf Connect Notify script
+      priority   = "After"
+      parameter4 = ""
+      parameter5 = ""
+      parameter6 = ""
+      parameter7 = ""
+      parameter8 = ""
+      parameter9 = ""
+      parameter10 = ""
+      parameter11 = ""
     }
   }
 
