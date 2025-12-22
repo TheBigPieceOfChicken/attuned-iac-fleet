@@ -14,7 +14,8 @@ terraform {
 
 # Jamf Pro Provider - uses secrets from Scalr variables
 provider "jamfpro" {
-  jamfpro_instance_fqdn = var.jamf_url  client_id     = var.jamf_client_id
+  jamfpro_instance_fqdn = var.jamf_url
+  client_id     = var.jamf_client_id
   client_secret = var.jamf_client_secret
   auth_method   = "oauth2"
 }
