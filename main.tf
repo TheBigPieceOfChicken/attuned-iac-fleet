@@ -67,7 +67,9 @@ resource "jamfpro_policy" "patch_jamf_connect" {
   # Package configuration - references existing package ID 24
  payloads {
   packages {
+    distribution_point = "default"
     package {
+      id = "24"
       action = "Install"
     }
   }
