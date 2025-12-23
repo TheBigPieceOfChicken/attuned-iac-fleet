@@ -102,5 +102,167 @@ resource "jamfpro_policy" "patch_jamf_connect" {
 scope {  # Scope should be at policy level
   all_jss_users = false
   all_computers = true
+
+# ================================================================================
+# PPPC Configuration Profiles ~ Privacy Preferences Policy Control
+# ================================================================================
+
+# Import existing PPPC Aftermath profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_aftermath
+  id = "109"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_aftermath" {
+  name                = "PPPC - Aftermath"
+  description         = "Privacy Preferences Policy Control for Aftermath forensics tool"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-Aftermath.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Google Chrome profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_google_chrome
+  id = "88"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_google_chrome" {
+  name                = "PPPC Google Chrome"
+  description         = "Privacy Preferences Policy Control for Google Chrome"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-GoogleChrome.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Google Drive profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_google_drive
+  id = "87"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_google_drive" {
+  name                = "PPPC Google Drive"
+  description         = "Privacy Preferences Policy Control for Google Drive"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-GoogleDrive.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Keeper profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_keeper
+  id = "89"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_keeper" {
+  name                = "PPPC Keeper"
+  description         = "Privacy Preferences Policy Control for Keeper Password Manager"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-Keeper.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Level RMM profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_level_rmm
+  id = "92"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_level_rmm" {
+  name                = "PPPC Level RMM"
+  description         = "Privacy Preferences Policy Control for Level RMM agent"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-LevelRMM.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Slack profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_slack
+  id = "90"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_slack" {
+  name                = "PPPC Slack"
+  description         = "Privacy Preferences Policy Control for Slack"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-Slack.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Import existing PPPC Zoom profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.pppc_zoom
+  id = "91"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
+  name                = "PPPC Zoom"
+  description         = "Privacy Preferences Policy Control for Zoom"
+  category_id         = "1"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-Zoom.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Note: PPPC profiles manage system-level privacy permissions for applications
+# Each profile grants specific TCC (Transparency, Consent, and Control) permissions
+# Payloads will need to be exported from existing Jamf Pro profiles
 }
 }  # Close policy resource
