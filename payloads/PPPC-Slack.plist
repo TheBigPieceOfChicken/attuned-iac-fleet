@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Services</key>
+	<dict>
+		<key>SystemPolicyAllFiles</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>(anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BQR82RBBHL) and identifier "com.tinyspeck.slackmacgap"</string>
+				<key>Comment</key>
+				<string>Allow Slack Full Disk Access</string>
+				<key>Identifier</key>
+				<string>com.tinyspeck.slackmacgap</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+		<key>Accessibility</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>(anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BQR82RBBHL) and identifier "com.tinyspeck.slackmacgap"</string>
+				<key>Comment</key>
+				<string>Allow Slack Accessibility</string>
+				<key>Identifier</key>
+				<string>com.tinyspeck.slackmacgap</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+		<key>ScreenCapture</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>AEReceiverCodeRequirement</key>
+				<string>identifier "com.apple.systemuiserver" and anchor apple</string>
+				<key>CodeRequirement</key>
+				<string>(anchor apple generic and certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BQR82RBBHL) and identifier "com.tinyspeck.slackmacgap"</string>
+				<key>Comment</key>
+				<string>Allow Slack Screen Recording - User Consent Required</string>
+				<key>Identifier</key>
+				<string>com.tinyspeck.slackmacgap</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
