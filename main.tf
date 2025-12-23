@@ -62,8 +62,7 @@ resource "jamfpro_script" "installomator" {
   lifecycle {
     ignore_changes = [script_contents]
 
-  }}}
-
+}
 # Note: Installomator is used by 13+ application deployment policies
 # Script provides automated application installation and updates
 
