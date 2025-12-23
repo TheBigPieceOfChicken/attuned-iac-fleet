@@ -1,3 +1,5 @@
+100
+70
 # Jamf Pro Terraform Configuration
 # This file contains resource definitions for the NFR tenant
 # Resources will be imported and managed via Terraform
@@ -98,11 +100,12 @@ resource "jamfpro_policy" "patch_jamf_connect" {
     }
   }
 }  # Close payloads
-} # Close policy resource
 
 scope {  # Scope should be at policy level
   all_jss_users = false
   all_computers = true
+  }
+} # Close policy resource
 
 # ================================================================================
 # 107 ~ Privacy Preferences Policy Control
@@ -266,4 +269,3 @@ resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
 # Each profile grants specific TCC (Transparency, Consent, and Control) permissions
 # Payloads will need to be exported from existing Jamf Pro profiles
 }
-}  # Close policy resource
