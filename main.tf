@@ -29,7 +29,7 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
 # ==============================================================================
 resource "jamfpro_script" "start_jc_notify" {
   name             = "00__Start JC Notify"
-  category_id      = 14  # Provisioning category
+  category_name      ="Provisioning" # Provisioning category
   priority         = "BEFORE"
   script_contents  = file("${path.root}/scripts/00__Start-JC-Notify.sh")
 
