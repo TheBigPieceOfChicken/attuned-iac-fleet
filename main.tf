@@ -347,7 +347,8 @@ resource "jamfpro_policy" "sec_enforce_gatekeeper" {
   payloads {
     scripts {
       id       = jamfpro_script.enforce_gatekeeper.id
-      priority = "After"    }
+      priority = "After"
+}
     
     maintenance {
       recon = true
@@ -375,7 +376,8 @@ resource "jamfpro_policy" "sec_enforce_password" {
   payloads {
     scripts {
       id       = jamfpro_script.enforce_password.id
-      priority = "After"    }
+      priority = "After"
+}
     
     maintenance {
       recon = true
