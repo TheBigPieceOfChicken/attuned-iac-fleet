@@ -54,15 +54,15 @@ import {
 }
 
 resource "jamfpro_script" "installomator" {
-  name            = "Installomator"
-  category_id     = "1"  # Applications category
-  priority        = "AFTER"
-
-
+  name        = "Installomator"
+  category_id = "1"
+  priority    = "AFTER"
+  
   lifecycle {
     ignore_changes = [script_contents]
-
+  }
 }
+
 # Note: Installomator is used by 13+ application deployment policies
 # Script provides automated application installation and updates
 
