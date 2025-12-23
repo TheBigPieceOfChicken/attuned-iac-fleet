@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Enable</key>
+	<string>On</string>
+	<key>Defer</key>
+	<true/>
+	<key>UseRecoveryKey</key>
+	<true/>
+	<key>ShowRecoveryKey</key>
+	<false/>
+	<key>DeferForceAtUserLoginMaxBypassAttempts</key>
+	<integer>-1</integer>
+	<key>DeferDontAskAtUserLogout</key>
+	<true/>
+</dict>
+</plist>
