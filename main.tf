@@ -274,31 +274,6 @@ resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
 
 # Import existing Security Firewall profile
 # ========================================================================
-# Security Profile ~ 001-SEC-FileVault-ALL (ID: 112)
-# ========================================================================
-
-# Import existing Security FileVault profile
-import {
-  to = jamfpro_macos_configuration_profile_plist.sec_filevault
-  id = "112"
-}
-
-resource "jamfpro_macos_configuration_profile_plist" "sec_filevault" {
-  name                 = "001-SEC-FileVault-ALL"
-  description          = "FileVault full disk encryption with institutional recovery key"
-  category_id          = "22"
-  distribution_method  = "Install Automatically"
-  level                = "System"
-  payloads             = file("${path.root}/payloads/SEC-FileVault.plist")
-  redeploy_on_update   = "Newly Assigned"
-  payload_validate     = false
-
-  scope {
-    all_computers = true
-    all_jss_users = false
-  }
-}
-
 
 import {
   to = jamfpro_macos_configuration_profile_plist.sec_firewall
