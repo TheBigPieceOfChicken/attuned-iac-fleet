@@ -43,3 +43,44 @@ resource "jamfpro_script" "start_jc_notify" {
   # Authentication handled by configuration profile (ID: 120)
 }
 
+# ===========================================================================
+# Policy Resource ~ Patch Jamf Connect Latest
+# ===========================================================================
+
+resource "jamfpro_policy" "patch_jamf_connect" {
+  name                       = "Patch Jamf Connect Latest"
+  enabled                    = true
+  category_id                = "14"
+  trigger_checkin                     = true
+  trigger_enrollment_complete  = false
+  trigger_login                = false
+  trigger_network_state_changed = false
+  trigger_startup              = false
+  trigger_other                = "none"
+  frequency                    = "Once per computer"
+  retry_event                  = "none"
+  retry_attempts               = -1
+  notify_on_each_failed_retry  = false
+  target_drive                 = "/"
+  offline                      = false
+
+  # Package configuration - references existing package ID 24
+  payloads {
+    packages {
+      distribution_point = "default"
+      package {
+        id = 24
+        fill_user_template = false
+        fill_existing_user_template = false
+        action = "install"
+      }
+    }
+    network_requirements = ""
+  }
+
+  scope {
+    all_jss_users = false
+    all_computers = true
+  }
+}
+
