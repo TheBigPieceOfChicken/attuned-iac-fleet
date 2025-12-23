@@ -66,7 +66,8 @@ resource "jamfpro_package" "jamf_connect_latest" {
 resource "jamfpro_policy" "patch_jamf_connect" {
   name                          = "Patch Jamf Connect Latest"
   enabled                       = true
-  category_id          = "14"  trigger_checkin               = true
+  category_id          = "14" 
+trigger_checkin               = true
   trigger_enrollment_complete   = false
   trigger_login                 = false
   trigger_network_state_changed = false
