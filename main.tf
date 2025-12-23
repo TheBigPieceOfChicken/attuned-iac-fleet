@@ -65,19 +65,16 @@ resource "jamfpro_policy" "patch_jamf_connect" {
   offline                      = false
 
   # Package configuration - references existing package ID 24
-  payloads {
-    packages {
-      distribution_point = "default"
-      package {
-        id = 24
-        fill_user_template = false
-        fill_existing_user_template = false
-        action = "install"
-      }
+ payloads {
+  packages {
+    package {
+      action = "Install"
     }
-  scope {
-    all_jss_users = false
-    all_computers = true
   }
-}
+}  # Close payloads
 
+scope {  # Scope should be at policy level
+  all_jss_users = false
+  all_computers = true
+}
+}  # Close policy resource
