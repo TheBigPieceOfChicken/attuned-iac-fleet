@@ -1,5 +1,3 @@
-100
-70
 # Jamf Pro Terraform Configuration
 # This file contains resource definitions for the NFR tenant
 # Resources will be imported and managed via Terraform
