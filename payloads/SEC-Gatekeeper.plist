@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"?>
+<plist version="1.0">
+<dict>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>AllowIdentifiedDevelopers</key>
+			<true/>
+			<key>EnableAssessment</key>
+			<true/>
+			<key>PayloadDisplayName</key>
+			<string>Security & Privacy</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.systempolicy.control</string>
+			<key>PayloadType</key>
+			<string>com.apple.systempolicy.control</string>
+			<key>PayloadUUID</key>
+			<string>4F8D6EE6-C7FA-6D2D-1E99-8FAG5H4C3D7E</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>PayloadDisplayName</key>
+	<string>003-SEC-Gatekeeper-ALL</string>
+	<key>PayloadIdentifier</key>
+	<string>com.attuned.security.gatekeeper</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>5G9E7FF7-D8GB-7E3E-2FA0-9GBH6I5D4E8F</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
+</dict>
+</plist>
