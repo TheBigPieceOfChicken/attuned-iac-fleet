@@ -266,4 +266,3 @@ resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
 # Note: PPPC profiles manage system-level privacy permissions for applications
 # Each profile grants specific TCC (Transparency, Consent, and Control) permissions
 # Payloads will need to be exported from existing Jamf Pro profiles
-}
