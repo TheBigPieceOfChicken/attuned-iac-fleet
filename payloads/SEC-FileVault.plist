@@ -2,17 +2,50 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Enable</key>
-	<string>On</string>
-	<key>Defer</key>
+	<key>PayloadContent</key>
+	<array>
+		<dict>
+			<key>Defer</key>
+			<true/>
+			<key>Enable</key>
+			<string>On</string>
+			<key>PayloadDisplayName</key>
+			<string>FileVault</string>
+			<key>PayloadIdentifier</key>
+			<string>C4FDD2C-1B52-48DC-84EE-2F081B2593BA</string>
+			<key>PayloadOrganization</key>
+			<string>JAMF Software</string>
+			<key>PayloadType</key>
+			<string>com.apple.MCX.FileVault2</string>
+			<key>PayloadUUID</key>
+			<string>C4FDD2C-1B52-48DC-84EE-2F081B2593BA</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+			<key>ShowRecoveryKey</key>
+			<false/>
+			<key>UseRecoveryKey</key>
+			<true/>
+		</dict>
+	</array>
+	<key>PayloadDescription</key>
+	<string>FileVault full disk encryption with institutional recovery key</string>
+	<key>PayloadDisplayName</key>
+	<string>001-SEC-FileVault-ALL</string>
+	<key>PayloadEnabled</key>
 	<true/>
-	<key>UseRecoveryKey</key>
+	<key>PayloadIdentifier</key>
+	<string>941A19EC-DA50-4594-97CE-A510BF6E90C1</string>
+	<key>PayloadOrganization</key>
+	<string>Attuned IT LLC</string>
+	<key>PayloadRemovalDisallowed</key>
 	<true/>
-	<key>ShowRecoveryKey</key>
-	<false/>
-	<key>DeferForceAtUserLoginMaxBypassAttempts</key>
-	<integer>-1</integer>
-	<key>DeferDontAskAtUserLogout</key>
-	<true/>
+	<key>PayloadScope</key>
+	<string>System</string>
+	<key>PayloadType</key>
+	<string>Configuration</string>
+	<key>PayloadUUID</key>
+	<string>941A19EC-DA50-4594-97CE-A510BF6E90C1</string>
+	<key>PayloadVersion</key>
+	<integer>1</integer>
 </dict>
 </plist>
