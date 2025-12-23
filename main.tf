@@ -297,3 +297,91 @@ resource "jamfpro_macos_configuration_profile_plist" "sec_firewall" {
 }
 
 
+# ====================================================================================
+# Security Scripts ~ Gatekeeper & Password Policy Enforcement
+# ====================================================================================
+
+# Script Resource ~ enforce-gatekeeper.sh
+resource "jamfpro_script" "enforce_gatekeeper" {
+  name     = "enforce-gatekeeper.sh"
+  category_id = "22"  # 01_Security category
+  info     = "Enforces Gatekeeper settings - requires App Store and identified developers"
+  notes    = "Created via Terraform IaC - Part of security baseline enforcement"
+  priority = "After"
+  os_requirements = "10.14.x"
+  script_contents = file("${path.root}/scripts/enforce-gatekeeper.sh")
+}
+
+# Script Resource ~ enforce-password-policy.sh  
+resource "jamfpro_script" "enforce_password" {
+  name     = "enforce-password-policy.sh"
+  category_id = "22"  # 01_Security category
+  info     = "Enforces password complexity requirements via pwpolicy"
+  notes    = "Created via Terraform IaC - Part of security baseline enforcement"
+  priority = "After"
+  os_requirements = "10.14.x"
+  script_contents = file("${path.root}/scripts/enforce-password-policy.sh")
+}
+
+# ====================================================================================
+# Security Policies ~ Script Execution via Recurring Check-in
+# ====================================================================================
+
+# Policy ~ SEC - Enforce Gatekeeper
+resource "jamfpro_policy" "sec_enforce_gatekeeper" {
+  name                      = "SEC - Enforce Gatekeeper"
+  enabled                   = true
+  trigger_checkin           = true
+  trigger_enrollment_complete = false
+  trigger_login             = false
+  trigger_network_state_changed = false
+  trigger_startup           = false
+  frequency                 = "Once per computer"
+  category_id               = 22  # 01_Security
+  
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+  
+  payloads {
+    scripts {
+      id       = jamfpro_script.enforce_gatekeeper.id
+      priority = "After"
+    }
+    
+    maintenance {
+      recon = true
+    }
+  }
+}
+
+# Policy ~ SEC - Enforce Password Policy
+resource "jamfpro_policy" "sec_enforce_password" {
+  name                      = "SEC - Enforce Password Policy"
+  enabled                   = true
+  trigger_checkin           = true
+  trigger_enrollment_complete = false
+  trigger_login             = false
+  trigger_network_state_changed = false
+  trigger_startup           = false
+  frequency                 = "Once per computer"
+  category_id               = 22  # 01_Security
+  
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+  
+  payloads {
+    scripts {
+      id       = jamfpro_script.enforce_password.id
+      priority = "After"
+    }
+    
+    maintenance {
+      recon = true
+    }
+  }
+}
+
