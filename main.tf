@@ -43,14 +43,30 @@ resource "jamfpro_script" "start_jc_notify" {
   # Authentication handled by configuration profile (ID: 120)
 }
 
+# ========================================================================
+# Package Resource - Jamf Connect 3.5.0
+# ========================================================================
+
+# Import existing package into Terraform state
+import {
+  to = jamfpro_package.jamf_connect_latest
+  id = "24"
+}
+
+resource "jamfpro_package" "jamf_connect_latest" {
+  name               = "1-JamfConnect-Latest.pkg"
+  category_id        = "11"  # Applications category
+  filename           = "1-JamfConnect-Latest.pkg"
+  # Note: This will be replaced with modern OIDC-compatible package in Phase C
+}
+
 # ==============================================================================
 # Policy Resource - Patch Jamf Connect Latest
 # ==============================================================================
 resource "jamfpro_policy" "patch_jamf_connect" {
   name                          = "Patch Jamf Connect Latest"
   enabled                       = true
-  category_id                   = "-1" # TODO: Update to Maintenance category ID
-  trigger_checkin               = true
+  category_id          = "14"  trigger_checkin               = true
   trigger_enrollment_complete   = false
   trigger_login                 = false
   trigger_network_state_changed = false
