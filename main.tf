@@ -320,3 +320,30 @@ resource "jamfpro_macos_configuration_profile_plist" "sec_gatekeeper" {
     all_jss_users = false
   }
 }
+
+
+# ========================================================================
+# Security Profile ~ 004-SEC-Password-ALL (ID: 115)
+# ========================================================================
+
+# Import existing Security Password profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.sec_password
+  id = "115"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "sec_password" {
+  name                = "004-SEC-Password-ALL"
+  description         = "Enforces password complexity requirements including minimum length, complexity, and password history"
+  category_id         = "22"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/SEC-Password.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
