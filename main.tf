@@ -80,3 +80,13 @@ resource "jamfpro_policy" "patch_jamf_connect" {
   # 3. Update the package ID above
 }
 
+# ==============================================================================
+# Import Blocks - Import existing Jamf Pro resources into Terraform state
+# ==============================================================================
+
+# Import existing policy (ID: 49)
+import {
+  to = jamfpro_policy.patch_jamf_connect
+  id = "49"
+}
+
