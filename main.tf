@@ -307,7 +307,7 @@ resource "jamfpro_script" "enforce_gatekeeper" {
   category_id = "22"  # 01_Security category
   info     = "Enforces Gatekeeper settings - requires App Store and identified developers"
   notes    = "Created via Terraform IaC - Part of security baseline enforcement"
-  priority = "After"
+  priority = "AFTER"
   os_requirements = "10.14.x"
   script_contents = file("${path.root}/scripts/enforce-gatekeeper.sh")
 }
@@ -318,7 +318,7 @@ resource "jamfpro_script" "enforce_password" {
   category_id = "22"  # 01_Security category
   info     = "Enforces password complexity requirements via pwpolicy"
   notes    = "Created via Terraform IaC - Part of security baseline enforcement"
-  priority = "After"
+  priority = "AFTER"
   os_requirements = "10.14.x"
   script_contents = file("${path.root}/scripts/enforce-password-policy.sh")
 }
@@ -347,7 +347,7 @@ resource "jamfpro_policy" "sec_enforce_gatekeeper" {
   payloads {
     scripts {
       id       = jamfpro_script.enforce_gatekeeper.id
-      priority = "After"
+      priority = "AFTER"
     }
     
     maintenance {
@@ -376,7 +376,7 @@ resource "jamfpro_policy" "sec_enforce_password" {
   payloads {
     scripts {
       id       = jamfpro_script.enforce_password.id
-      priority = "After"
+      priority = "AFTER"
     }
     
     maintenance {
