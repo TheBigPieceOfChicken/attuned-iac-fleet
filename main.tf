@@ -30,7 +30,7 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
 resource "jamfpro_script" "start_jc_notify" {
   name             = "00__Start JC Notify"
   category_id      = 14  # Provisioning category
-  priority         = "AFTER"
+  priority         = "BEFORE"
   script_contents  = file("${path.root}/scripts/00__Start-JC-Notify.sh")
 
   # Note: Script is OIDC compatible - no changes needed
