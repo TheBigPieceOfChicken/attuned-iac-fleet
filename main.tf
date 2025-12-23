@@ -43,14 +43,3 @@ resource "jamfpro_script" "start_jc_notify" {
   # Authentication handled by configuration profile (ID: 120)
 }
 
-# ========================================================================
-# Package Resource - Jamf Connect 3.5.0
-# ========================================================================
-
-# Import existing package into Terraform state
-import {
-  to = jamfpro_package.jamf_connect_latest
-  id = "24"
-}
-
-
