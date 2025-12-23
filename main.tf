@@ -57,6 +57,7 @@ resource "jamfpro_script" "installomator" {
   name        = "Installomator"
   category_id = "1"
   priority    = "AFTER"
+  script_contents = "# Managed by import - content pulled from existing Jamf Pro script ID 14"
   
   lifecycle {
     ignore_changes = [script_contents]
