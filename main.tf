@@ -118,7 +118,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_aftermath" {
   name                = "PPPC - Aftermath"
   description         = "Privacy Preferences Policy Control for Aftermath forensics tool"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-Aftermath.plist")
@@ -140,7 +140,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_google_chrome" {
   name                = "PPPC Google Chrome"
   description         = "Privacy Preferences Policy Control for Google Chrome"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-GoogleChrome.plist")
@@ -162,7 +162,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_google_drive" {
   name                = "PPPC Google Drive"
   description         = "Privacy Preferences Policy Control for Google Drive"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-GoogleDrive.plist")
@@ -184,7 +184,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_keeper" {
   name                = "PPPC Keeper"
   description         = "Privacy Preferences Policy Control for Keeper Password Manager"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-Keeper.plist")
@@ -206,7 +206,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_level_rmm" {
   name                = "PPPC Level RMM"
   description         = "Privacy Preferences Policy Control for Level RMM agent"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-LevelRMM.plist")
@@ -228,7 +228,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_slack" {
   name                = "PPPC Slack"
   description         = "Privacy Preferences Policy Control for Slack"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-Slack.plist")
@@ -250,7 +250,7 @@ import {
 resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
   name                = "PPPC Zoom"
   description         = "Privacy Preferences Policy Control for Zoom"
-  category_id         = "1"
+  category_id         = "17"
   distribution_method = "Install Automatically"
   level               = "System"
   payloads            = file("${path.root}/payloads/PPPC-Zoom.plist")
