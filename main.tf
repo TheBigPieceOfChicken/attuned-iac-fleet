@@ -43,6 +43,29 @@ resource "jamfpro_script" "start_jc_notify" {
   # Authentication handled by configuration profile (ID: 120)
 }
 
+# ==============================================================================
+# Script Resource ~ Installomator (Application Deployment)
+# ==============================================================================
+
+# Import existing script into Terraform state
+import {
+  to = jamfpro_script.installomator
+  id = "14"
+}
+
+resource "jamfpro_script" "installomator" {
+  name            = "Installomator"
+  category_id     = "1"  # Applications category
+  priority        = "AFTER"
+
+
+  lifecycle {
+    ignore_changes = [script_contents]
+  }}
+
+# Note: Installomator is used by 13+ application deployment policies
+# Script provides automated application installation and updates
+
 # ===========================================================================
 # Policy Resource ~ Patch Jamf Connect Latest
 # ===========================================================================
