@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Services</key>
+	<dict>
+		<key>SystemPolicyAllFiles</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>identifier "io.level.agent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BNB82BTKXO</string>
+				<key>Comment</key>
+				<string>Allow Level RMM Full Disk Access</string>
+				<key>Identifier</key>
+				<string>io.level.agent</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+		<key>FileProviderPresence</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>identifier "io.level.agent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BNB82BTKXO</string>
+				<key>Comment</key>
+				<string>Allow Level RMM File Provider Presence</string>
+				<key>Identifier</key>
+				<string>io.level.agent</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+		<key>Accessibility</key>
+		<array>
+			<dict>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>identifier "io.level.agent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BNB82BTKXO</string>
+				<key>Comment</key>
+				<string>Allow Level RMM Accessibility</string>
+				<key>Identifier</key>
+				<string>io.level.agent</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+		<key>ScreenCapture</key>
+		<array>
+			<dict>
+				<key>AEReceiverCodeRequirement</key>
+				<string>identifier "io.level.agent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BNB82BTKXO</string>
+				<key>Allowed</key>
+				<true/>
+				<key>CodeRequirement</key>
+				<string>identifier "io.level.agent" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = BNB82BTKXO</string>
+				<key>Comment</key>
+				<string>Allow Level RMM Screen Recording</string>
+				<key>Identifier</key>
+				<string>io.level.agent</string>
+				<key>IdentifierType</key>
+				<string>bundleID</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
