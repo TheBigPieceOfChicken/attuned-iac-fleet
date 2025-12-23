@@ -75,9 +75,6 @@ resource "jamfpro_policy" "patch_jamf_connect" {
         action = "install"
       }
     }
-    network_requirements = ""
-  }
-
   scope {
     all_jss_users = false
     all_computers = true
