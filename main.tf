@@ -293,3 +293,30 @@ resource "jamfpro_macos_configuration_profile_plist" "sec_firewall" {
     all_jss_users = false
   }
 }
+
+
+# ========================================================================
+# Security Profile ~ 003-SEC-Gatekeeper-ALL (ID: 114)
+# ========================================================================
+
+# Import existing Security Gatekeeper profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.sec_gatekeeper
+  id = "114"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "sec_gatekeeper" {
+  name                = "003-SEC-Gatekeeper-ALL"
+  description         = "Gatekeeper policy requiring App Store and identified developers"
+  category_id         = "22"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/SEC-Gatekeeper.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
