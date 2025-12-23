@@ -266,3 +266,30 @@ resource "jamfpro_macos_configuration_profile_plist" "pppc_zoom" {
 # Note: PPPC profiles manage system-level privacy permissions for applications
 # Each profile grants specific TCC (Transparency, Consent, and Control) permissions
 # Payloads will need to be exported from existing Jamf Pro profiles
+
+
+# ========================================================================
+# Security Profile ~ 002-SEC-Firewall-ALL (ID: 113)
+# ========================================================================
+
+# Import existing Security Firewall profile
+import {
+  to = jamfpro_macos_configuration_profile_plist.sec_firewall
+  id = "113"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "sec_firewall" {
+  name                = "002-SEC-Firewall-ALL"
+  description         = "macOS Application Firewall enabled with block all incoming connections"
+  category_id         = "22"
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/SEC-Firewall.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
