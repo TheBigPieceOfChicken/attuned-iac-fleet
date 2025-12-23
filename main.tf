@@ -98,13 +98,14 @@ resource "jamfpro_policy" "patch_jamf_connect" {
     }
   }
 }  # Close payloads
+} # Close policy resource
 
 scope {  # Scope should be at policy level
   all_jss_users = false
   all_computers = true
 
 # ================================================================================
-# PPPC Configuration Profiles ~ Privacy Preferences Policy Control
+# 107 ~ Privacy Preferences Policy Control
 # ================================================================================
 
 # Import existing PPPC Aftermath profile
