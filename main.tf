@@ -27,6 +27,12 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
 # ==============================================================================
 # Script Resource - 00__Start JC Notify (OIDC Compatible)
 # ==============================================================================
+
+# Import existing script into Terraform state
+import {
+  to = jamfpro_script.start_jc_notify
+  id = "15"
+}
 resource "jamfpro_script" "start_jc_notify" {
   name             = "00__Start JC Notify"
   priority         = "BEFORE"
