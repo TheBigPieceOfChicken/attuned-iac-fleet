@@ -458,3 +458,21 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
 }
 #   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
 #   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
+
+
+# Configuration Profile: PPPC-Zoom-GoogleLogin (Zoom Google Login Preference)
+resource "jamfpro_macos_configuration_profile_plist" "zoom_google_login" {
+  name                    = "PPPC-Zoom-GoogleLogin"
+  description             = "Configures Zoom to prefer Google login and disable new account signup"
+  category_id             = "-1" # Will be updated after category import
+  distribution_method     = "Install Automatically"
+  level                   = "System"
+  payloads                = file("${path.root}/payloads/PPPC-Zoom-GoogleLogin.plist")
+  redeploy_on_update      = "Newly Assigned"
+  payload_validate        = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
