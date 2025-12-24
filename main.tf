@@ -526,5 +526,21 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     intelligence            = false  # Intelligence - checked (skip)
     enable_lockdown_mode    = false  # Enable Lockdown Mode - checked (skip)
     welcome                 = false  # Software Update - checked (skip)
+    software_update              = false  # Software Update - checked (skip)
+    wallpaper                    = false  # Wallpaper - checked (skip)
+    os_showcase                  = false  # OS Showcase - checked (skip)
+    additional_privacy_settings  = false  # Additional Privacy Settings - checked (skip)
+  }
+
+  location_information {
+    # Empty block - using defaults
+  }
+
+  purchasing_information {
+    # Empty block - using defaults
+  }
+
+  account_settings {
+    # Empty block - using defaults
   }
 }
