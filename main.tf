@@ -568,7 +568,6 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     prefill_type                                 = "UNKNOWN"
     prefill_account_full_name                    = ""
     prefill_account_user_name                    = ""
-    572
 _from_modification       = false
 }
 }
