@@ -450,7 +450,7 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
     # Managed Local Administrator Account (LAPS)
     managed_local_administrator_account {
       create_managed_local_administrator_account               = true
-      management_account_username                              = "attunelaps"
+      management_account_username                              = "__localadmin"
       hide_managed_local_administrator_account                 = true
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
