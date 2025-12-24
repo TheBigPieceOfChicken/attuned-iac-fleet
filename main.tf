@@ -453,16 +453,9 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
       hide_managed_local_administrator_account                      = true
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
-
-  # Custom Enrollment Messaging
-  messaging_settings {
-    title               = "Welcome to Attuned IT"
-    paragraph           = "This Mac will be configured with secure access and company applications."
-    button              = "Continue"
-    language            = "en"
-  }
   }
 }
+
 
 #   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
 #   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
