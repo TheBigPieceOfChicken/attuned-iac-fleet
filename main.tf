@@ -532,7 +532,11 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     additional_privacy_settings  = false  # Additional Privacy Settings - checked (skip)
   }
 
+  site_id           = "-1"
+  auto_advance_setup = false
+
   location_information {
+    username      = ""
 
     realname      = ""
     phone         = ""
@@ -544,6 +548,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   purchasing_information {
+    leased        = false
     purchased          = true
     apple_care_id      = ""
     po_number          = ""
@@ -558,6 +563,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   account_settings {
+    payload_configured     = true
     local_admin_account_enabled                  = false
     admin_username                               = ""
     admin_password                               = ""
@@ -568,6 +574,5 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     prefill_type                                 = "UNKNOWN"
     prefill_account_full_name                    = ""
     prefill_account_user_name                    = ""
-_from_modification       = false
-}
+    prevent_prefill_info_from_modification = false}
 }
