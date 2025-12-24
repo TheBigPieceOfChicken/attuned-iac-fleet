@@ -511,7 +511,7 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  Jamf Connect - Google OIDC
+  display_name                          = "Jamf Connect - Google OIDC"
   mandatory                             = true    # Make MDM Profile Mandatory: checked
   mdm_removable                         = false   # Allow MDM Profile Removal: unchecked
   support_phone_number                  = ""
