@@ -491,18 +491,20 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
     user_enrollment_mdm_profile_description         = "Profile for user-based enrollment"
     user_enrollment_mdm_profile_install_button_name = "Install"
     quickadd_package_installation_text              = "Install Management Software"
-# Computer PreStage Enrollment - Jamf Connect - Google OIDC (ID: 1)    quickadd_package_progress_text                  = "Installing management software..."
+    quickadd_package_progress_text                  = "Installing management software..."
     quickadd_package_install_button_name            = "Install Software"
     enrollment_complete_text                        = "Enrollment Complete! Your device is now managed."
     enrollment_failed_text                          = "Enrollment Failed. Please try again."
-    quickadd_package_name                     = "Attuned IT MDM Agent"    view_enrollment_status_button_name              = "Check Status"
+    quickadd_package_name                           = "Attuned IT MDM Agent"    
+    view_enrollment_status_button_name              = "Check Status"
     view_enrollment_status_text                     = "Check your enrollment status"
     log_out_button_name                             = "Log Out"
   }
 }
 
 # ====================================================================================
-# Computer PreStage Enrollment - Jamf Connect - Google OIDC (ID: 1)# ====================================================================================
+# Computer PreStage Enrollment - Jamf Connect - Google OIDC (ID: 1)
+# ====================================================================================
 import {
   to = jamfpro_computer_prestage_enrollment.filevault_jamf_connect
   id = "1"
