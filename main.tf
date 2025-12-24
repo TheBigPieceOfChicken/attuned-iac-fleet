@@ -21,6 +21,23 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
   }
 }
 
+# Configuration Profile: 009-IDM-JamfConnect-PrivilegeElevation-ALL (ID: 121)
+resource "jamfpro_macos_configuration_profile_plist" "jamfconnect_privilege_elevation" {
+  name                  = "009-IDM-JamfConnect-PrivilegeElevation-ALL"
+  description           = "Enables temporary privilege elevation via Jamf Connect menu bar - 30 min duration with OIDC authentication"
+  category_id           = "-1"  # Will be updated after category import
+  distribution_method   = "Install Automatically"
+  level                 = "System"
+  payloads              = file("${path.root}/payloads/009-IDM-JamfConnect-PrivilegeElevation-ALL.plist")
+  redeploy_on_update    = "Newly Assigned"
+  payload_validate      = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
 # Note: Policies will be added after scripts and packages are created/imported
 # TODO: Add jamfpro_policy resources after dependencies are resolved
 
