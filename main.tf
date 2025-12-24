@@ -429,5 +429,32 @@ resource "jamfpro_self_service_settings" "macos" {
 # Note: Individual bookmarks are not yet supported by the jamfpro Terraform provider
 # Bookmarks must be managed manually in Jamf Pro UI or via API scripts
 # Current bookmarks configured:
+
+# ================================================================================
+# User-Initiated Enrollment Settings
+# ================================================================================
+
+# User-Initiated Enrollment - Global Settings for Computers
+resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
+  # General Settings
+  restrict_reenrollment_to_authorized_users_only = false
+  skip_certificate_installation_during_enrollment = true
+
+  # Computer Enrollment Settings
+  user_initiated_enrollment_for_computers {
+    enable_user_initiated_enrollment_for_computers = true
+    ensure_ssh_is_enabled                         = false
+    launch_self_service_when_done                 = false
+    account_driven_device_enrollment              = false
+
+    # Managed Local Administrator Account (LAPS)
+    managed_local_administrator_account {
+      create_managed_local_administrator_account               = true
+      management_account_username                              = "attunelaps"
+      hide_managed_local_administrator_account                 = true
+      allow_ssh_access_for_managed_local_administrator_account_only = true
+    }
+  }
+}
 #   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
 #   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
