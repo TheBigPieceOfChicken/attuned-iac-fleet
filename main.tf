@@ -538,7 +538,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   enable_recovery_lock                     = false  # Set Recovery Lock Password: unchecked
   recovery_lock_password_type              = "MANUAL"
   rotate_recovery_lock_password            = false
-  prestage_minimum_os_target_version_type  = "LATEST_VERSION"  # Latest version based on computer eligibility
+  prestage_minimum_os_target_version_type  = "MINIMUM_OS_LATEST_VERSION"
 
   # All Setup Assistant items checked = SKIP them (true)
   skip_setup_items {
