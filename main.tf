@@ -407,16 +407,9 @@ resource "jamfpro_policy" "sec_enforce_password" {
 # ================================================================================
 
 # Self Service+ Branding - Default macOS Branding (ID: 1)
-resource "jamfpro_self_service_branding_macos" "default_branding" {
-  branding_name                      = "Default macOS Branding"
-  branding_name_secondary            = "AttunedIT"
-  icon_uri                          = file("${path.root}/branding/AttunedIT-Logo.png")
-  branding_header_image_uri         = file("${path.root}/branding/AttunedIT-Banner.png")
-  branding_configuration {
-    branding_text                    = "Self Service"
-    branding_text_secondary          = "Self Service Menu"
-  }
-}
+# Note: Self Service branding requires icon_id and banner_image_id (numeric) which must be
+# uploaded to Jamf separately. Current branding (ID: 1) exists in Jamf and should be
+# imported or managed manually. Image upload is not supported by Terraform provider.
 
 # Self Service+ Settings - Catalog Configuration
 resource "jamfpro_self_service_settings" "macos" {
