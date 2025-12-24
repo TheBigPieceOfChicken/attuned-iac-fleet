@@ -511,105 +511,40 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  display_name = "Jamf Connect - Google OIDC"
-  mandatory                             = true    # Make MDM Profile Mandatory: checked
-  mdm_removable                         = false   # Allow MDM Profile Removal: unchecked
-  support_phone_number                  = ""
-  support_email_address                 = "nfrjamf@attuned.it"
-  department                            = ""
-  default_prestage                      = true    # Automatically assign new devices: checked
-  enrollment_site_id                    = "-1"
-  keep_existing_site_membership         = false
-  keep_existing_location_information    = false   # Use existing location information: unchecked
-  require_authentication                = false   # Require Authentication: unchecked
-  authentication_prompt                 = ""
-  prevent_activation_lock               = true    # Prevent user from enabling Activation Lock: checked
-  enable_device_based_activation_lock   = false
-  device_enrollment_program_instance_id = "1"     # Attuned-JAMF instance
+  # ... existing settings ...
 
-  language                                 = "en"
-  region                                   = "US"
-  enrollment_customization_id              = "0"   # None selected
-  install_profiles_during_setup            = true
-  prestage_installed_profile_ids           = ["120"]
-  custom_package_ids                       = []
-  custom_package_distribution_point_id     = "-1"
-  enable_recovery_lock                     = false  # Set Recovery Lock Password: unchecked
-  recovery_lock_password_type              = "MANUAL"
-  rotate_recovery_lock_password            = false
-  prestage_minimum_os_target_version_type  = "MINIMUM_OS_LATEST_VERSION"
+  # ADD: JAMF Connect PKG (CRITICAL)
+  custom_package_ids = ["24"]  # Your Jamf Connect package ID
 
-  # All Setup Assistant items checked = SKIP them (true)
+  # KEEP auto-advance, but enable ONE pane for timing
+  auto_advance_setup = true
+  
   skip_setup_items {
-    biometric                    = true   # Touch ID / Face ID
-    terms_of_address             = true   # Terms of Address
-    file_vault                   = true   # FileVault
-    icloud_diagnostics           = true   # iCloud Diagnostics
-    diagnostics                  = true   # App Analytics
-    accessibility                = true   # Accessibility
-    apple_id                     = true   # Apple ID
-    screen_time                  = true   # Screen Time
-    siri                         = true   # Siri
-    display_tone                 = true   # True Tone Display (Deprecated)
-    restore                      = true   # Transfer Information
-    appearance                   = true   # Choose your Look
-    privacy                      = true   # Privacy
-    payment                      = true   # Apple Pay
-    registration                 = true   # Registration
-    tos                          = true   # Terms and Conditions
-    icloud_storage               = true   # All Your Files in iCloud
-    location                     = true   # Location Services
-    intelligence                 = true   # Intelligence
-    enable_lockdown_mode         = true   # Enable Lockdown Mode
-    welcome                      = true   # Get Started
-    software_update              = true   # Software Update
-    wallpaper                    = true   # Wallpaper
-    os_showcase                  = true   # OS Showcase
-    additional_privacy_settings  = true   # Additional Privacy Settings
+    location = false    # ✅ ONLY pane shown - gives ~5 sec for pkg/profile
+    privacy = true
+    biometric = true
+    terms_of_address = true
+    file_vault = true
+    icloud_diagnostics = true
+    diagnostics = true
+    accessibility = true
+    apple_id = true
+    screen_time = true
+    siri = true
+    display_tone = true
+    restore = true
+    appearance = true
+    # ... all others = true
   }
 
-  site_id            = "-1"
-  auto_advance_setup = true   # Automatically advance through Setup Assistant: checked
-
-  location_information {
-    username      = ""
-    realname      = ""
-    phone         = ""
-    email         = ""
-    room          = ""
-    position      = ""
-    department_id = "-1"
-    building_id   = "-1"
-  }
-
-  purchasing_information {
-    leased             = false
-    purchased          = true
-    apple_care_id      = ""
-    po_number          = ""
-    vendor             = ""
-    purchase_price     = ""
-    life_expectancy    = 0
-    purchasing_account = ""
-    purchasing_contact = ""
-    lease_date         = "1970-01-01"
-    po_date            = "1970-01-01"
-    warranty_date      = "1970-01-01"
-  }
-
+  # NO local admin - JAMF Connect creates the user, LAPS handles admin
   account_settings {
-    payload_configured                           = true
-    local_admin_account_enabled                  = false
-    admin_username                               = ""
-    admin_password                               = ""
-    hidden_admin_account                         = false
-    local_user_managed                           = false
-    user_account_type                            = "ADMINISTRATOR"
-    prefill_primary_account_info_feature_enabled = false
-    prefill_type                                 = "UNKNOWN"
-    prefill_account_full_name                    = ""
-    prefill_account_user_name                    = ""
-    prevent_prefill_info_from_modification       = false
+    payload_configured              = true
+    local_admin_account_enabled     = false  # ✅ No PreStage admin
+    local_user_managed              = false
+    user_account_type               = "SKIP"  # ✅ Skip native account creation
+    hide_local_admin_account        = true
+    admin_username                  = ""
+    admin_password                  = ""
   }
 }
-
