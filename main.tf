@@ -453,6 +453,14 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
       hide_managed_local_administrator_account                      = true
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
+
+  # Custom Enrollment Messaging
+  messaging_settings {
+    title               = "Welcome to Attuned IT"
+    paragraph           = "This Mac will be configured with secure access and company applications."
+    button              = "Continue"
+    language            = "en"
+  }
   }
 }
 
