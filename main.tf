@@ -454,26 +454,52 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
   }
-}
 
-
-#   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
-#   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
-
-# Configuration Profile: PPPC-Zoom-GoogleLogin (Zoom Google Login Preference)
-resource "jamfpro_macos_configuration_profile_plist" "zoom_google_login" {
-  name                = "PPPC-Zoom-GoogleLogin"
-  description         = "Configures Zoom to prefer Google login and disable new account signup"
-  category_id         = "-1" # Will be updated after category import
-  distribution_method = "Install Automatically"
-  level               = "System"
-  payloads            = file("${path.root}/payloads/PPPC-Zoom-GoogleLogin.plist")
-  redeploy_on_update  = "Newly Assigned"
-  payload_validate    = false
-
-  scope {
-    all_computers = true
-    all_jss_users = false
+  # Enrollment Messaging - English (required)
+  messaging {
+    language_code                                   = "en"
+    language_name                                   = "English"
+    page_title                                      = "Welcome to Attuned IT"
+    username_text                                   = "Username"
+    password_text                                   = "Password"
+    login_button_text                               = "Log In"
+    device_ownership_page_text                      = "Select your device type"
+    personal_device_button_name                     = "Personal Device"
+    institutional_ownership_button_name             = "Company Device"
+    personal_device_management_description          = "Your personal device will be managed with minimal restrictions"
+    institutional_device_management_description     = "This Mac will be configured with secure access and company applications."
+    enroll_device_button_name                       = "Continue"
+    eula_personal_devices                           = "By enrolling, you agree to allow management of your personal device"
+    eula_institutional_devices                      = "This device is subject to management policies as per company guidelines"
+    accept_button_text                              = "Accept"
+    site_selection_text                             = "Select your site"
+    ca_certificate_installation_text                = "Install CA Certificate"
+    ca_certificate_name                             = "Attuned IT Root CA"
+    ca_certificate_description                      = "This certificate allows secure communication with company servers"
+    ca_certificate_install_button_name              = "Install CA"
+    institutional_mdm_profile_installation_text     = "Install Management Profile"
+    institutional_mdm_profile_name                  = "Attuned IT MDM Profile"
+    institutional_mdm_profile_description           = "This profile allows management of your company device"
+    institutional_mdm_profile_pending_text          = "Installing MDM profile..."
+    institutional_mdm_profile_install_button_name   = "Install"
+    personal_mdm_profile_installation_text          = "Install Personal Device Profile"
+    personal_mdm_profile_name                       = "Personal Device Profile"
+    personal_mdm_profile_description                = "Limited management profile for personal devices"
+    personal_mdm_profile_install_button_name        = "Install Profile"
+    user_enrollment_mdm_profile_installation_text   = "Install User Enrollment Profile"
+    user_enrollment_mdm_profile_name                = "User Enrollment Profile"
+    user_enrollment_mdm_profile_description         = "Profile for user-based enrollment"
+    user_enrollment_mdm_profile_install_button_name = "Install"
+    quickadd_package_installation_text              = "Install Management Software"
+    quickadd_package_name                           = "Attuned IT MDM Agent"
+    quickadd_package_progress_text                  = "Installing management software..."
+    quickadd_package_install_button_name            = "Install Software"
+    enrollment_complete_text                        = "Enrollment Complete! Your device is now managed."
+    enrollment_failed_text                          = "Enrollment Failed. Please try again."
+    try_again_button_name                           = "Try Again"
+    view_enrollment_status_button_name              = "Check Status"
+    view_enrollment_status_text                     = "Check your enrollment status"
+    log_out_button_name                             = "Log Out"
   }
 }
 
