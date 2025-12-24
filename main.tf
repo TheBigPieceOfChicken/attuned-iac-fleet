@@ -402,7 +402,7 @@ resource "jamfpro_policy" "sec_enforce_password" {
   }
 }
 
-lapsadmin# Self Service+ Configuration
+# lapsadmin Self Service+ Configuration
 # ================================================================================
 
 # Self Service+ Branding - Default macOS Branding (ID: 1)
@@ -453,7 +453,7 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
       hide_managed_local_administrator_account                 = true
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
-lapsadmin}
+
 #   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
 #   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
 
