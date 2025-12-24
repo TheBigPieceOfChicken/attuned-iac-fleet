@@ -461,7 +461,6 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  # Required fields
   display_name                              = "FileVault - Jamf Connect"
   mandatory                                 = true
   mdm_removable                             = false
@@ -491,31 +490,33 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   prestage_minimum_os_target_version_type   = "NO_ENFORCEMENT"
   site_id                                   = "-1"
 
-  # Required: Skip Setup Items Block
+  # Required: Skip Setup Items Block - ALL fields must be specified
   skip_setup_items {
-    biometric            = true
-    terms_of_address     = true
-    file_vault           = true
-    icloud_diagnostics   = true
-    diagnostics          = true
-    accessibility        = true
-    apple_id             = true
-    screen_time          = true
-    siri                 = true
-    display_tone         = true
-    restore              = true
-    appearance           = true
-    privacy              = true
-    payment              = true
-    registration         = true
-    tos                  = true
-    icloud_storage       = true
-    location             = false
-    intelligence         = true
-    enable_lockdown_mode = true
-    welcome              = true
-    wallpaper            = true
-    os_showcase          = true
+    biometric                     = true
+    terms_of_address              = true
+    file_vault                    = true
+    icloud_diagnostics            = true
+    diagnostics                   = true
+    accessibility                 = true
+    apple_id                      = true
+    screen_time                   = true
+    siri                          = true
+    display_tone                  = true
+    restore                       = true
+    appearance                    = true
+    privacy                       = true
+    payment                       = true
+    registration                  = true
+    tos                           = true
+    icloud_storage                = true
+    location                      = false
+    intelligence                  = true
+    enable_lockdown_mode          = true
+    welcome                       = true
+    wallpaper                     = true
+    os_showcase                   = true
+    software_update               = true
+    additional_privacy_settings   = true
   }
 
   # Required: Location Information Block
