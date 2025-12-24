@@ -495,8 +495,7 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
     quickadd_package_install_button_name            = "Install Software"
     enrollment_complete_text                        = "Enrollment Complete! Your device is now managed."
     enrollment_failed_text                          = "Enrollment Failed. Please try again."
-    try_again_button_name                           = "Try Again"
-    view_enrollment_status_button_name              = "Check Status"
+    quickadd_package_name                     = "Attuned IT MDM Agent"    view_enrollment_status_button_name              = "Check Status"
     view_enrollment_status_text                     = "Check your enrollment status"
     log_out_button_name                             = "Log Out"
   }
