@@ -533,14 +533,40 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   location_information {
-    # Empty block - using defaults
-  }
+  }    username      = ""
+    realname      = ""
+    phone         = ""
+    email         = ""
+    room          = ""
+    position      = ""
+    department_id = "-1"
+    building_id   = "-1"
 
   purchasing_information {
-    # Empty block - using defaults
-  }
+  }    leased             = false
+    purchased          = true
+    apple_care_id      = ""
+    po_number          = ""
+    vendor             = ""
+    purchase_price     = ""
+    life_expectancy    = 0
+    purchasing_account = ""
+    purchasing_contact = ""
+    lease_date         = "1970-01-01"
+    po_date            = "1970-01-01"
+    warranty_date      = "1970-01-01"
 
   account_settings {
-    # Empty block - using defaults
-  }
+  }    payload_configured                           = true
+    local_admin_account_enabled                  = false
+    admin_username                               = ""
+    admin_password                               = ""
+    hidden_admin_account                         = false
+    local_user_managed                           = false
+    user_account_type                            = "ADMINISTRATOR"
+    prefill_primary_account_info_feature_enabled = false
+    prefill_type                                 = "UNKNOWN"
+    prefill_account_full_name                    = ""
+    prefill_account_user_name                    = ""
+    prevent_prefill_info_from_modification       = false
 }
