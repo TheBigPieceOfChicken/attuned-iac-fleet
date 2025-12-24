@@ -476,3 +476,55 @@ resource "jamfpro_macos_configuration_profile_plist" "zoom_google_login" {
     all_jss_users = false
   }
 }
+
+# ====================================================================================
+# Computer PreStage Enrollment ~ FileVaultJamf Connect (ID: 1)
+# ====================================================================================
+# PreStage Enrollment for Automated Device Enrollment
+# Skips most Setup Assistant screens per current Jamf Pro configuration
+import {
+  to = jamfpro_computer_prestage_enrollment.filevault_jamf_connect
+  id = "1"
+}
+
+resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
+  display_name                         = "FileVaultJamf Connect"
+  mandatory                            = true
+  mdm_removable                        = false
+  support_phone_number                 = ""
+  support_email_address                = "nfrjamf@attuned.it"
+  department                           = ""
+  default_prestage                     = false
+  enrollment_site_id                   = "-1"
+  keep_existing_site_membership        = false
+  keep_existing_location_information   = false
+  require_authentication               = false
+  authentication_prompt                = ""
+  prevent_activation_lock              = true
+  enable_device_based_activation_lock  = false
+  device_enrollment_program_instance_id = "1"
+  
+  skip_setup_items {
+    biometric               = false  # Get Started - checked in Jamf (skip)
+    terms_of_address        = false  # Terms of Address - checked (skip)
+    file_vault              = false  # FileVault - checked (skip)
+    icloud_diagnostics      = false  # iCloud Diagnostics - checked (skip)
+    diagnostics             = false  # App Analytics - checked (skip)
+    accessibility           = false  # Accessibility - checked (skip)
+    apple_id                = false  # Apple ID - checked (skip)
+    screen_time             = false  # Screen Time - checked (skip)
+    siri                    = false  # Siri - checked (skip)
+    display_tone            = false  # Choose your Look - checked (skip)
+    restore                 = false  # Transfer Information - checked (skip)
+    appearance              = false  # Wallpaper - checked (skip)
+    privacy                 = false  # Privacy - checked (skip)
+    payment                 = false  # Apple Pay - checked (skip)
+    registration            = false  # Registration - checked (skip)
+    tos                     = false  # Terms and Conditions - checked (skip)
+    icloud_storage          = false  # All Your Files in iCloud - checked (skip)
+    location                = true   # Location Services - NOT checked (show)
+    intelligence            = false  # Intelligence - checked (skip)
+    enable_lockdown_mode    = false  # Enable Lockdown Mode - checked (skip)
+    welcome                 = false  # Software Update - checked (skip)
+  }
+}
