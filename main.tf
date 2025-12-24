@@ -513,63 +513,64 @@ import {
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   display_name                          = "FileVaultJamf Connect"
-  mandatory                             = true
-  mdm_removable                         = false
+  mandatory                             = true    # Make MDM Profile Mandatory: checked
+  mdm_removable                         = false   # Allow MDM Profile Removal: unchecked
   support_phone_number                  = ""
   support_email_address                 = "nfrjamf@attuned.it"
   department                            = ""
-  default_prestage                      = false
+  default_prestage                      = true    # Automatically assign new devices: checked
   enrollment_site_id                    = "-1"
   keep_existing_site_membership         = false
-  keep_existing_location_information    = false
-  require_authentication                = false
+  keep_existing_location_information    = false   # Use existing location information: unchecked
+  require_authentication                = false   # Require Authentication: unchecked
   authentication_prompt                 = ""
-  prevent_activation_lock               = true
+  prevent_activation_lock               = true    # Prevent user from enabling Activation Lock: checked
   enable_device_based_activation_lock   = false
-  device_enrollment_program_instance_id = "1"
+  device_enrollment_program_instance_id = "1"     # Attuned-JAMF instance
 
   language                                 = "en"
   region                                   = "US"
-  enrollment_customization_id              = "0"
+  enrollment_customization_id              = "0"   # None selected
   install_profiles_during_setup            = true
   prestage_installed_profile_ids           = []
   custom_package_ids                       = []
   custom_package_distribution_point_id     = "-1"
-  enable_recovery_lock                     = false
+  enable_recovery_lock                     = false  # Set Recovery Lock Password: unchecked
   recovery_lock_password_type              = "MANUAL"
   rotate_recovery_lock_password            = false
-  prestage_minimum_os_target_version_type  = "NO_ENFORCEMENT"
+  prestage_minimum_os_target_version_type  = "LATEST_VERSION"  # Latest version based on computer eligibility
 
+  # All Setup Assistant items checked = SKIP them (true)
   skip_setup_items {
-    biometric                    = false
-    terms_of_address             = false
-    file_vault                   = false
-    icloud_diagnostics           = false
-    diagnostics                  = false
-    accessibility                = false
-    apple_id                     = false
-    screen_time                  = false
-    siri                         = false
-    display_tone                 = false
-    restore                      = false
-    appearance                   = false
-    privacy                      = false
-    payment                      = false
-    registration                 = false
-    tos                          = false
-    icloud_storage               = false
-    location                     = true
-    intelligence                 = false
-    enable_lockdown_mode         = false
-    welcome                      = false
-    software_update              = false
-    wallpaper                    = false
-    os_showcase                  = false
-    additional_privacy_settings  = false
+    biometric                    = true   # Touch ID / Face ID
+    terms_of_address             = true   # Terms of Address
+    file_vault                   = true   # FileVault
+    icloud_diagnostics           = true   # iCloud Diagnostics
+    diagnostics                  = true   # App Analytics
+    accessibility                = true   # Accessibility
+    apple_id                     = true   # Apple ID
+    screen_time                  = true   # Screen Time
+    siri                         = true   # Siri
+    display_tone                 = true   # True Tone Display (Deprecated)
+    restore                      = true   # Transfer Information
+    appearance                   = true   # Choose your Look
+    privacy                      = true   # Privacy
+    payment                      = true   # Apple Pay
+    registration                 = true   # Registration
+    tos                          = true   # Terms and Conditions
+    icloud_storage               = true   # All Your Files in iCloud
+    location                     = true   # Location Services
+    intelligence                 = true   # Intelligence
+    enable_lockdown_mode         = true   # Enable Lockdown Mode
+    welcome                      = true   # Get Started
+    software_update              = true   # Software Update
+    wallpaper                    = true   # Wallpaper
+    os_showcase                  = true   # OS Showcase
+    additional_privacy_settings  = true   # Additional Privacy Settings
   }
 
   site_id            = "-1"
-  auto_advance_setup = true
+  auto_advance_setup = true   # Automatically advance through Setup Assistant: checked
 
   location_information {
     username      = ""
@@ -612,3 +613,4 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     prevent_prefill_info_from_modification       = false
   }
 }
+
