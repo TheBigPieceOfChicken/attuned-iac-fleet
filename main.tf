@@ -573,15 +573,12 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   site_id            = "-1"
-  auto_advance_setup = false
-
+    auto_advance_setup = true
   location_information {
     username      = ""
-    realname      = ""
     phone         = ""
     email         = ""
     room          = ""
-    position      = ""
     department_id = "-1"
     building_id   = "-1"
   }
