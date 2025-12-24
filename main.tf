@@ -402,3 +402,45 @@ resource "jamfpro_policy" "sec_enforce_password" {
   }
 }
 
+# ================================================================================
+# Self Service+ Configuration
+# ================================================================================
+
+# Self Service+ Branding - Default macOS Branding (ID: 1)
+resource "jamfpro_self_service_branding_macos" "default_branding" {
+  branding_name                      = "Default macOS Branding"
+  branding_name_secondary            = "AttunedIT"
+  icon_uri                          = file("${path.root}/branding/AttunedIT-Logo.png")
+  branding_header_image_uri         = file("${path.root}/branding/AttunedIT-Banner.png")
+  branding_configuration {
+    branding_text                    = "Self Service"
+    branding_text_secondary          = "Self Service Menu"
+  }
+}
+
+# Self Service+ Bookmark 1 - Attuned Helpdesk Portal (ID: 1)
+resource "jamfpro_self_service_bookmark" "helpdesk_portal" {
+  name        = "Attuned Helpdesk Portal"
+  url         = "https://support.attuned.it/"
+  icon_uri    = file("${path.root}/branding/JAMF-Self-service-ICON-Branding.png")
+  priority    = 1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+# Self Service+ Bookmark 2 - SaaS Apps Status (ID: 2)
+resource "jamfpro_self_service_bookmark" "saas_status" {
+  name        = "SaaS Apps Status"
+  description = "What's Down?"
+  url         = "https://isdown.app/s/attunedIT"
+  priority    = 2
+
+  scope {
+    all_computers = true
+    all_jss_users = true
+  }
+}
+
