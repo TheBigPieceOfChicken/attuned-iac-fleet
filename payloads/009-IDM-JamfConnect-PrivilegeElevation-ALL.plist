@@ -10,10 +10,8 @@
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadIdentifier</key>
-            <string>com.jamf.connect.privilege</string>
-            <key>PayloadUUID</key>
-            <string>074328E7-146F-4D76-8A5A-F26B6D55295C</string>
-            <key>PayloadDisplayName</key>
+            <string>com.jamf.connect.privilege.elevation</string>            <key>PayloadUUID</key>
+            <string>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</string>            <key>PayloadDisplayName</key>
             <string>Jamf Connect Privilege Elevation</string>
             <key>TemporaryUserPromotion</key>
             <true/>
@@ -28,8 +26,7 @@
     <key>PayloadDisplayName</key>
     <string>Jamf Connect Privilege Elevation</string>
     <key>PayloadIdentifier</key>
-    <string>com.attuned.jamfconnect.privilege</string>
-    <key>PayloadType</key>
+            <string>com.jamf.connect.privilege.elevation</string>    <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
     <string>9B9D1234-5678-90AB-CDEF-123456789ABC</string>
