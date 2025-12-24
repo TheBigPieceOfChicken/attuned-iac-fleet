@@ -533,7 +533,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   location_information {
-  }    username      = ""
+
     realname      = ""
     phone         = ""
     email         = ""
@@ -541,9 +541,9 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     position      = ""
     department_id = "-1"
     building_id   = "-1"
+  }
 
   purchasing_information {
-  }    leased             = false
     purchased          = true
     apple_care_id      = ""
     po_number          = ""
@@ -555,9 +555,9 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     lease_date         = "1970-01-01"
     po_date            = "1970-01-01"
     warranty_date      = "1970-01-01"
+  }
 
   account_settings {
-  }    payload_configured                           = true
     local_admin_account_enabled                  = false
     admin_username                               = ""
     admin_password                               = ""
