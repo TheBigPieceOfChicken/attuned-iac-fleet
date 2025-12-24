@@ -2,8 +2,6 @@
 # This file contains resource definitions for the NFR tenant
 # Resources will be imported and managed via Terraform
 
-# Configuration profiles, policies, and other resources will be added here
-
 # Configuration Profile: 008-IDM-JamfConnect-Login-ALL (ID: 120)
 resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
   name                = "008-IDM-JamfConnect-Login-ALL"
@@ -463,67 +461,37 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  display_name                           = "FileVault - Jamf Connect"
-  mandatory                              = true
-  mdm_removable                          = false
-  support_phone_number                   = ""
-  support_email_address                  = ""
-  department                             = ""
-  default_prestage_enrolled_device_names = false
-  enrollment_site_id                     = "-1"
-  keep_existing_site_membership          = false
-  keep_existing_location_information     = false
-  authentication_prompt                  = "Sign in with your Google Workspace credentials"
-  prevent_activation_lock                = true
-  enable_device_based_activation_lock    = false
-  device_enrollment_program_instance_id  = "1"
-  require_authentication                 = false
-  auto_advance_setup                     = true
+  # Required fields
+  display_name                              = "FileVault - Jamf Connect"
+  mandatory                                 = true
+  mdm_removable                             = false
+  support_phone_number                      = ""
+  support_email_address                     = ""
+  department                                = ""
+  default_prestage                          = false
+  enrollment_site_id                        = "-1"
+  keep_existing_site_membership             = false
+  keep_existing_location_information        = false
+  require_authentication                    = false
+  authentication_prompt                     = "Sign in with your Google Workspace credentials"
+  prevent_activation_lock                   = true
+  enable_device_based_activation_lock       = false
+  device_enrollment_program_instance_id     = "1"
+  auto_advance_setup                        = true
+  language                                  = ""
+  region                                    = ""
+  enrollment_customization_id               = "0"
+  install_profiles_during_setup             = true
+  prestage_installed_profile_ids            = []
+  custom_package_ids                        = ["24"]
+  custom_package_distribution_point_id      = "-2"
+  enable_recovery_lock                      = false
+  recovery_lock_password_type               = "MANUAL"
+  rotate_recovery_lock_password             = false
+  prestage_minimum_os_target_version_type   = "NO_ENFORCEMENT"
+  site_id                                   = "-1"
 
-  custom_package_ids = ["24"]
-
-  location_information {
-    username      = ""
-    realname      = ""
-    phone         = ""
-    email         = ""
-    room          = ""
-    position      = ""
-    department_id = "-1"
-    building_id   = "-1"
-  }
-
-  purchasing_information {
-    leased             = false
-    purchased          = true
-    apple_care_id      = ""
-    po_number          = ""
-    vendor             = ""
-    purchase_price     = ""
-    life_expectancy    = 0
-    purchasing_account = ""
-    purchasing_contact = ""
-    lease_date         = "1970-01-01"
-    po_date            = "1970-01-01"
-    warranty_date      = "1970-01-01"
-  }
-
-  account_settings {
-    payload_configured                           = true
-    local_admin_account_enabled                  = false
-    admin_username                               = ""
-    admin_password                               = ""
-    hidden_admin_account                         = true
-    local_user_managed                           = false
-    user_account_type                            = "SKIP"
-    version_lock                                 = 0
-    prefill_primary_account_info_feature_enabled = false
-    prefill_type                                 = "UNKNOWN"
-    prefill_account_full_name                    = ""
-    prefill_account_user_name                    = ""
-    prevent_prefill_info_from_modification       = false
-  }
-
+  # Required: Skip Setup Items Block
   skip_setup_items {
     biometric            = true
     terms_of_address     = true
@@ -547,5 +515,50 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     enable_lockdown_mode = true
     welcome              = true
     wallpaper            = true
+    os_showcase          = true
+  }
+
+  # Required: Location Information Block
+  location_information {
+    username      = ""
+    realname      = ""
+    phone         = ""
+    email         = ""
+    room          = ""
+    position      = ""
+    department_id = "-1"
+    building_id   = "-1"
+  }
+
+  # Required: Purchasing Information Block
+  purchasing_information {
+    leased             = false
+    purchased          = true
+    apple_care_id      = ""
+    po_number          = ""
+    vendor             = ""
+    purchase_price     = ""
+    life_expectancy    = 0
+    purchasing_account = ""
+    purchasing_contact = ""
+    lease_date         = "1970-01-01"
+    po_date            = "1970-01-01"
+    warranty_date      = "1970-01-01"
+  }
+
+  # Required: Account Settings Block
+  account_settings {
+    payload_configured                           = true
+    local_admin_account_enabled                  = false
+    admin_username                               = ""
+    admin_password                               = ""
+    hidden_admin_account                         = true
+    local_user_managed                           = false
+    user_account_type                            = "SKIP"
+    prefill_primary_account_info_feature_enabled = false
+    prefill_type                                 = "UNKNOWN"
+    prefill_account_full_name                    = ""
+    prefill_account_user_name                    = ""
+    prevent_prefill_info_from_modification       = false
   }
 }
