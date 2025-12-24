@@ -511,7 +511,7 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  display_name                          = "Jamf Connect - Google OIDC"
+  display_name = "Jamf Connect - Google OIDC"
   mandatory                             = true    # Make MDM Profile Mandatory: checked
   mdm_removable                         = false   # Allow MDM Profile Removal: unchecked
   support_phone_number                  = ""
@@ -531,7 +531,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   region                                   = "US"
   enrollment_customization_id              = "0"   # None selected
   install_profiles_during_setup            = true
-  prestage_installed_profile_ids           = ["128"]]
+  prestage_installed_profile_ids           = ["128"]
   custom_package_ids                       = []
   custom_package_distribution_point_id     = "-1"
   enable_recovery_lock                     = false  # Set Recovery Lock Password: unchecked
