@@ -89,38 +89,38 @@ resource "jamfpro_script" "installomator" {
 # ===========================================================================
 
 resource "jamfpro_policy" "patch_jamf_connect" {
-  name                       = "Patch Jamf Connect Latest"
-  enabled                    = true
-  category_id                = "14"
-  trigger_checkin                     = true
-  trigger_enrollment_complete  = false
-  trigger_login                = false
+  name                          = "Patch Jamf Connect Latest"
+  enabled                       = true
+  category_id                   = "14"
+  trigger_checkin               = true
+  trigger_enrollment_complete   = false
+  trigger_login                 = false
   trigger_network_state_changed = false
-  trigger_startup              = false
-  trigger_other                = "none"
-  frequency                    = "Once per computer"
-  retry_event                  = "none"
-  retry_attempts               = -1
-  notify_on_each_failed_retry  = false
-  target_drive                 = "/"
-  offline                      = false
+  trigger_startup               = false
+  trigger_other                 = "none"
+  frequency                     = "Once per computer"
+  retry_event                   = "none"
+  retry_attempts                = -1
+  notify_on_each_failed_retry   = false
+  target_drive                  = "/"
+  offline                       = false
 
   # Package configuration - references existing package ID 24
- payloads {
-  packages {
-    distribution_point = "default"
-    package {
-      id = "24"
-      action = "Install"
+  payloads {
+    packages {
+      distribution_point = "default"
+      package {
+        id     = "24"
+        action = "Install"
+      }
     }
   }
-}  # Close payloads
 
-scope {  # Scope should be at policy level
-  all_jss_users = false
-  all_computers = true
+  scope {
+    all_jss_users = false
+    all_computers = true
   }
-} # Close policy resource
+}
 
 # ================================================================================
 # 107 ~ Privacy Preferences Policy Control
@@ -320,22 +320,22 @@ resource "jamfpro_macos_configuration_profile_plist" "sec_firewall" {
 
 # Script Resource ~ enforce-gatekeeper.sh
 resource "jamfpro_script" "enforce_gatekeeper" {
-  name     = "enforce-gatekeeper.sh"
-  category_id = "22"  # 01_Security category
-  info     = "Enforces Gatekeeper settings - requires App Store and identified developers"
-  notes    = "Created via Terraform IaC - Part of security baseline enforcement"
-  priority = "AFTER"
+  name            = "enforce-gatekeeper.sh"
+  category_id     = "22"  # 01_Security category
+  info            = "Enforces Gatekeeper settings - requires App Store and identified developers"
+  notes           = "Created via Terraform IaC - Part of security baseline enforcement"
+  priority        = "AFTER"
   os_requirements = "10.14.x"
   script_contents = file("${path.root}/scripts/enforce-gatekeeper.sh")
 }
 
 # Script Resource ~ enforce-password-policy.sh  
 resource "jamfpro_script" "enforce_password" {
-  name     = "enforce-password-policy.sh"
-  category_id = "22"  # 01_Security category
-  info     = "Enforces password complexity requirements via pwpolicy"
-  notes    = "Created via Terraform IaC - Part of security baseline enforcement"
-  priority = "AFTER"
+  name            = "enforce-password-policy.sh"
+  category_id     = "22"  # 01_Security category
+  info            = "Enforces password complexity requirements via pwpolicy"
+  notes           = "Created via Terraform IaC - Part of security baseline enforcement"
+  priority        = "AFTER"
   os_requirements = "10.14.x"
   script_contents = file("${path.root}/scripts/enforce-password-policy.sh")
 }
@@ -346,15 +346,15 @@ resource "jamfpro_script" "enforce_password" {
 
 # Policy ~ SEC - Enforce Gatekeeper
 resource "jamfpro_policy" "sec_enforce_gatekeeper" {
-  name                      = "SEC - Enforce Gatekeeper"
-  enabled                   = true
-  trigger_checkin           = true
-  trigger_enrollment_complete = false
-  trigger_login             = false
+  name                          = "SEC - Enforce Gatekeeper"
+  enabled                       = true
+  trigger_checkin               = true
+  trigger_enrollment_complete   = false
+  trigger_login                 = false
   trigger_network_state_changed = false
-  trigger_startup           = false
-  frequency                 = "Once per computer"
-  category_id               = 22  # 01_Security
+  trigger_startup               = false
+  frequency                     = "Once per computer"
+  category_id                   = 22  # 01_Security
   
   scope {
     all_computers = true
@@ -365,7 +365,7 @@ resource "jamfpro_policy" "sec_enforce_gatekeeper" {
     scripts {
       id       = jamfpro_script.enforce_gatekeeper.id
       priority = "After"
-}
+    }
     
     maintenance {
       recon = true
@@ -375,15 +375,15 @@ resource "jamfpro_policy" "sec_enforce_gatekeeper" {
 
 # Policy ~ SEC - Enforce Password Policy
 resource "jamfpro_policy" "sec_enforce_password" {
-  name                      = "SEC - Enforce Password Policy"
-  enabled                   = true
-  trigger_checkin           = true
-  trigger_enrollment_complete = false
-  trigger_login             = false
+  name                          = "SEC - Enforce Password Policy"
+  enabled                       = true
+  trigger_checkin               = true
+  trigger_enrollment_complete   = false
+  trigger_login                 = false
   trigger_network_state_changed = false
-  trigger_startup           = false
-  frequency                 = "Once per computer"
-  category_id               = 22  # 01_Security
+  trigger_startup               = false
+  frequency                     = "Once per computer"
+  category_id                   = 22  # 01_Security
   
   scope {
     all_computers = true
@@ -394,7 +394,7 @@ resource "jamfpro_policy" "sec_enforce_password" {
     scripts {
       id       = jamfpro_script.enforce_password.id
       priority = "After"
-}
+    }
     
     maintenance {
       recon = true
@@ -412,17 +412,17 @@ resource "jamfpro_policy" "sec_enforce_password" {
 
 # Self Service+ Settings - Catalog Configuration
 resource "jamfpro_self_service_settings" "macos" {
-  install_automatically     = true
+  install_automatically    = true
   install_location         = "/Applications"
   user_login_level         = "Anonymous"
   allow_remember_me        = true
-  use_fido2               = false
-  auth_type               = "Basic"
+  use_fido2                = false
+  auth_type                = "Basic"
   notifications_enabled    = true
   alert_user_approved_mdm  = true
   default_landing_page     = "HOME"
   default_home_category_id = -1
-  bookmarks_name          = "Bookmarks"
+  bookmarks_name           = "Bookmarks"
 }
 
 # Note: Individual bookmarks are not yet supported by the jamfpro Terraform provider
@@ -436,21 +436,21 @@ resource "jamfpro_self_service_settings" "macos" {
 # User-Initiated Enrollment - Global Settings for Computers
 resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
   # General Settings
-  restrict_reenrollment_to_authorized_users_only = false
+  restrict_reenrollment_to_authorized_users_only  = false
   skip_certificate_installation_during_enrollment = true
 
   # Computer Enrollment Settings
   user_initiated_enrollment_for_computers {
     enable_user_initiated_enrollment_for_computers = true
-    ensure_ssh_is_enabled                         = false
-    launch_self_service_when_done                 = false
-    account_driven_device_enrollment              = false
+    ensure_ssh_is_enabled                          = false
+    launch_self_service_when_done                  = false
+    account_driven_device_enrollment               = false
 
     # Managed Local Administrator Account (LAPS)
     managed_local_administrator_account {
-      create_managed_local_administrator_account               = true
-      management_account_username                              = "attunelaps"
-      hide_managed_local_administrator_account                 = true
+      create_managed_local_administrator_account                    = true
+      management_account_username                                   = "attunelaps"
+      hide_managed_local_administrator_account                      = true
       allow_ssh_access_for_managed_local_administrator_account_only = true
     }
   }
@@ -459,17 +459,16 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
 #   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
 #   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
 
-
 # Configuration Profile: PPPC-Zoom-GoogleLogin (Zoom Google Login Preference)
 resource "jamfpro_macos_configuration_profile_plist" "zoom_google_login" {
-  name                    = "PPPC-Zoom-GoogleLogin"
-  description             = "Configures Zoom to prefer Google login and disable new account signup"
-  category_id             = "-1" # Will be updated after category import
-  distribution_method     = "Install Automatically"
-  level                   = "System"
-  payloads                = file("${path.root}/payloads/PPPC-Zoom-GoogleLogin.plist")
-  redeploy_on_update      = "Newly Assigned"
-  payload_validate        = false
+  name                = "PPPC-Zoom-GoogleLogin"
+  description         = "Configures Zoom to prefer Google login and disable new account signup"
+  category_id         = "-1" # Will be updated after category import
+  distribution_method = "Install Automatically"
+  level               = "System"
+  payloads            = file("${path.root}/payloads/PPPC-Zoom-GoogleLogin.plist")
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
 
   scope {
     all_computers = true
@@ -488,56 +487,69 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  display_name                         = "FileVaultJamf Connect"
-  mandatory                            = true
-  mdm_removable                        = false
-  support_phone_number                 = ""
-  support_email_address                = "nfrjamf@attuned.it"
-  department                           = ""
-  default_prestage                     = false
-  enrollment_site_id                   = "-1"
-  keep_existing_site_membership        = false
-  keep_existing_location_information   = false
-  require_authentication               = false
-  authentication_prompt                = ""
-  prevent_activation_lock              = true
-  enable_device_based_activation_lock  = false
+  display_name                          = "FileVaultJamf Connect"
+  mandatory                             = true
+  mdm_removable                         = false
+  support_phone_number                  = ""
+  support_email_address                 = "nfrjamf@attuned.it"
+  department                            = ""
+  default_prestage                      = false
+  enrollment_site_id                    = "-1"
+  keep_existing_site_membership         = false
+  keep_existing_location_information    = false
+  require_authentication                = false
+  authentication_prompt                 = ""
+  prevent_activation_lock               = true
+  enable_device_based_activation_lock   = false
   device_enrollment_program_instance_id = "1"
-  
+
+  # ========== ADDED MISSING REQUIRED ARGUMENTS ==========
+  language                                 = "en"
+  region                                   = "US"
+  enrollment_customization_id              = "0"
+  install_profiles_during_setup            = true
+  prestage_installed_profile_ids           = []
+  custom_package_ids                       = []
+  custom_package_distribution_point_id     = "-1"
+  enable_recovery_lock                     = false
+  recovery_lock_password_type              = "MANUAL"
+  rotate_recovery_lock_password            = false
+  prestage_minimum_os_target_version_type  = "NO_ENFORCEMENT"
+  # ======================================================
+
   skip_setup_items {
-    biometric               = false  # Get Started - checked in Jamf (skip)
-    terms_of_address        = false  # Terms of Address - checked (skip)
-    file_vault              = false  # FileVault - checked (skip)
-    icloud_diagnostics      = false  # iCloud Diagnostics - checked (skip)
-    diagnostics             = false  # App Analytics - checked (skip)
-    accessibility           = false  # Accessibility - checked (skip)
-    apple_id                = false  # Apple ID - checked (skip)
-    screen_time             = false  # Screen Time - checked (skip)
-    siri                    = false  # Siri - checked (skip)
-    display_tone            = false  # Choose your Look - checked (skip)
-    restore                 = false  # Transfer Information - checked (skip)
-    appearance              = false  # Wallpaper - checked (skip)
-    privacy                 = false  # Privacy - checked (skip)
-    payment                 = false  # Apple Pay - checked (skip)
-    registration            = false  # Registration - checked (skip)
-    tos                     = false  # Terms and Conditions - checked (skip)
-    icloud_storage          = false  # All Your Files in iCloud - checked (skip)
-    location                = true   # Location Services - NOT checked (show)
-    intelligence            = false  # Intelligence - checked (skip)
-    enable_lockdown_mode    = false  # Enable Lockdown Mode - checked (skip)
-    welcome                 = false  # Software Update - checked (skip)
-    software_update              = false  # Software Update - checked (skip)
-    wallpaper                    = false  # Wallpaper - checked (skip)
-    os_showcase                  = false  # OS Showcase - checked (skip)
-    additional_privacy_settings  = false  # Additional Privacy Settings - checked (skip)
+    biometric                    = false
+    terms_of_address             = false
+    file_vault                   = false
+    icloud_diagnostics           = false
+    diagnostics                  = false
+    accessibility                = false
+    apple_id                     = false
+    screen_time                  = false
+    siri                         = false
+    display_tone                 = false
+    restore                      = false
+    appearance                   = false
+    privacy                      = false
+    payment                      = false
+    registration                 = false
+    tos                          = false
+    icloud_storage               = false
+    location                     = true   # Location Services - NOT checked (show)
+    intelligence                 = false
+    enable_lockdown_mode         = false
+    welcome                      = false
+    software_update              = false
+    wallpaper                    = false
+    os_showcase                  = false
+    additional_privacy_settings  = false
   }
 
-  site_id           = "-1"
+  site_id            = "-1"
   auto_advance_setup = false
 
   location_information {
     username      = ""
-
     realname      = ""
     phone         = ""
     email         = ""
@@ -548,7 +560,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   purchasing_information {
-    leased        = false
+    leased             = false
     purchased          = true
     apple_care_id      = ""
     po_number          = ""
@@ -563,17 +575,17 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   account_settings {
-    payload_configured     = true
-    local_admin_account_enabled                  = false
-    admin_username                               = ""
-    admin_password                               = ""
-    hidden_admin_account                         = false
-    local_user_managed                           = false
-    user_account_type                            = "ADMINISTRATOR"
+    payload_configured                         = true
+    local_admin_account_enabled                = false
+    admin_username                             = ""
+    admin_password                             = ""
+    hidden_admin_account                       = false
+    local_user_managed                         = false
+    user_account_type                          = "ADMINISTRATOR"
     prefill_primary_account_info_feature_enabled = false
-    prefill_type                                 = "UNKNOWN"
-    prefill_account_full_name                    = ""
-    prefill_account_user_name                    = ""
-    prevent_prefill_info_from_modification = false
-}
+    prefill_type                               = "UNKNOWN"
+    prefill_account_full_name                  = ""
+    prefill_account_user_name                  = ""
+    prevent_prefill_info_from_modification     = false
+  }
 }
