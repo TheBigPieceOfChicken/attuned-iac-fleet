@@ -418,29 +418,23 @@ resource "jamfpro_self_service_branding_macos" "default_branding" {
   }
 }
 
-# Self Service+ Bookmark 1 - Attuned Helpdesk Portal (ID: 1)
-resource "jamfpro_self_service_bookmark" "helpdesk_portal" {
-  name        = "Attuned Helpdesk Portal"
-  url         = "https://support.attuned.it/"
-  icon_uri    = file("${path.root}/branding/JAMF-Self-service-ICON-Branding.png")
-  priority    = 1
-
-  scope {
-    all_computers = true
-    all_jss_users = false
-  }
+# Self Service+ Settings - Catalog Configuration
+resource "jamfpro_self_service_settings" "macos" {
+  install_automatically     = true
+  install_location         = "/Applications"
+  user_login_level         = "Anonymous"
+  allow_remember_me        = true
+  use_fido2               = false
+  auth_type               = "Basic"
+  notifications_enabled    = true
+  alert_user_approved_mdm  = true
+  default_landing_page     = "HOME"
+  default_home_category_id = -1
+  bookmarks_name          = "Bookmarks"
 }
 
-# Self Service+ Bookmark 2 - SaaS Apps Status (ID: 2)
-resource "jamfpro_self_service_bookmark" "saas_status" {
-  name        = "SaaS Apps Status"
-  description = "What's Down?"
-  url         = "https://isdown.app/s/attunedIT"
-  priority    = 2
-
-  scope {
-    all_computers = true
-    all_jss_users = true
-  }
-}
-
+# Note: Individual bookmarks are not yet supported by the jamfpro Terraform provider
+# Bookmarks must be managed manually in Jamf Pro UI or via API scripts
+# Current bookmarks configured:
+#   1. Attuned Helpdesk Portal (https://support.attuned.it/) - Priority 1, All computers
+#   2. SaaS Apps Status (https://isdown.app/s/attunedIT) - Priority 2, All computers + All users
