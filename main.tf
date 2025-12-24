@@ -506,8 +506,6 @@ resource "jamfpro_user_initiated_enrollment_settings" "uie_settings" {
 # ====================================================================================
 # Computer PreStage Enrollment ~ FileVaultJamf Connect (ID: 1)
 # ====================================================================================
-# PreStage Enrollment for Automated Device Enrollment
-# Skips most Setup Assistant screens per current Jamf Pro configuration
 import {
   to = jamfpro_computer_prestage_enrollment.filevault_jamf_connect
   id = "1"
@@ -530,7 +528,6 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   enable_device_based_activation_lock   = false
   device_enrollment_program_instance_id = "1"
 
-  # ========== ADDED MISSING REQUIRED ARGUMENTS ==========
   language                                 = "en"
   region                                   = "US"
   enrollment_customization_id              = "0"
@@ -542,7 +539,6 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   recovery_lock_password_type              = "MANUAL"
   rotate_recovery_lock_password            = false
   prestage_minimum_os_target_version_type  = "NO_ENFORCEMENT"
-  # ======================================================
 
   skip_setup_items {
     biometric                    = false
@@ -562,7 +558,7 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     registration                 = false
     tos                          = false
     icloud_storage               = false
-    location                     = true   # Location Services - NOT checked (show)
+    location                     = true
     intelligence                 = false
     enable_lockdown_mode         = false
     welcome                      = false
@@ -573,12 +569,15 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   site_id            = "-1"
-    auto_advance_setup = true
+  auto_advance_setup = true
+
   location_information {
     username      = ""
+    realname      = ""
     phone         = ""
     email         = ""
     room          = ""
+    position      = ""
     department_id = "-1"
     building_id   = "-1"
   }
@@ -599,17 +598,17 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   account_settings {
-    payload_configured                         = true
-    local_admin_account_enabled                = false
-    admin_username                             = ""
-    admin_password                             = ""
-    hidden_admin_account                       = false
-    local_user_managed                         = false
-    user_account_type                          = "ADMINISTRATOR"
+    payload_configured                           = true
+    local_admin_account_enabled                  = false
+    admin_username                               = ""
+    admin_password                               = ""
+    hidden_admin_account                         = false
+    local_user_managed                           = false
+    user_account_type                            = "ADMINISTRATOR"
     prefill_primary_account_info_feature_enabled = false
-    prefill_type                               = "UNKNOWN"
-    prefill_account_full_name                  = ""
-    prefill_account_user_name                  = ""
-    prevent_prefill_info_from_modification     = false
+    prefill_type                                 = "UNKNOWN"
+    prefill_account_full_name                    = ""
+    prefill_account_user_name                    = ""
+    prevent_prefill_info_from_modification       = false
   }
 }
