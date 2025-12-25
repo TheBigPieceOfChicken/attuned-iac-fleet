@@ -7,12 +7,6 @@ variable "jamf_url" {
   sensitive   = true
 }
 
-variable "prestage_admin_password" {
-description = "Jamf Pro PreStage Password"  
-type      = string
-  sensitive = true
-}
-
 variable "jamf_client_id" {
   description = "Jamf Pro API client ID"
   type        = string
