@@ -2,20 +2,70 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-        <key>PayloadContent</key>
-        <key>PayloadDisplayName</key>
-        <string>Jamf Connect Login Configuration</string>
-        <key>PayloadIdentifier</key>
-        <string>PLACEHOLDER-UUID</string>
-        <key>PayloadOrganization</key>
-        <string>Attuned IT</string>
-        <key>PayloadScope</key>
-        <string>System</string>
-        <key>PayloadType</key>
-        <string>Configuration</string>
-        <key>PayloadUUID</key>
-        <string>PLACEHOLDER-UUID</string>
-        <key>PayloadVersion</key>
-        <integer>1</integer>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.jamf.connect.login</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.jamf.connect.login</string>
+            <key>PayloadUUID</key>
+            <string>PLACEHOLDER-UUID</string>
+            <key>PayloadDisplayName</key>
+            <string>Jamf Connect Login Configuration</string>
+            
+            <!-- OIDC Provider Configuration -->
+            <key>OIDCProvider</key>
+            <string>Google</string>
+            <key>OIDCClientID</key>
+            <string>208701094348-1vu748u2u1hu7uuh58g8qfoauk4vlksp.apps.googleusercontent.com</string>
+            <key>OIDCRedirectURI</key>
+            <string>https://127.0.0.1/jamfconnect</string>
+            <key>OIDCROPGID</key>
+            <string>attuned.it</string>
+            
+            <!-- User Account Configuration -->
+            <key>CreateAdminUser</key>
+            <false/>
+            <key>DemobilizationPasswordChanges</key>
+            <true/>
+            <key>LocalPasswordSync</key>
+            <true/>
+            <key>EnableFDE</key>
+            <true/>
+            <key>EnableFDERecoveryKey</key>
+            <true/>
+            
+            <!-- Username Format -->
+            <key>DontMatchKerberosToAccountname</key>
+            <false/>
+            
+            <!-- Login Window Customization -->
+            <key>LoginLogo</key>
+            <string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/BookmarkIcon.icns</string>
+            <key>BackgroundImage</key>
+            <string></string>
+            
+            <!-- Password Management -->
+            <key>LocalFallback</key>
+            <true/>
+            <key>PasswordExpiration</key>
+            <integer>0</integer>
+            <key>PasswordExpirationGracePeriod</key>
+            <integer>7</integer>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>008-IDM-JamfConnect-Login-ALL</string>
+    <key>PayloadIdentifier</key>
+    <string>com.attuned.jamfconnect.login</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>PLACEHOLDER-PARENT-UUID</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
 </plist>
