@@ -12,8 +12,7 @@
             <key>PayloadIdentifier</key>
             <string>com.jamf.connect.login</string>
             <key>PayloadUUID</key>
-            <string>PLACEHOLDER-UUID</string>
-            <key>PayloadDisplayName</key>
+                <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>            <key>PayloadDisplayName</key>
             <string>Jamf Connect Login Configuration</string>
             
             <!-- OIDC Provider Configuration -->
