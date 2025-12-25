@@ -63,8 +63,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>PLACEHOLDER-PARENT-UUID</string>
-    <key>PayloadVersion</key>
+            <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>    <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
 </plist>
