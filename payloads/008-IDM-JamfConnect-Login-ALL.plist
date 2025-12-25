@@ -10,9 +10,12 @@
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadIdentifier</key>
-            <string>com.jamf.connect.login</string>
+            <string>com.attuned.jamfconnect.login.settings</string>
             <key>PayloadUUID</key>
-                <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>            <key>PayloadDisplayName</key>
+            <string>B2C4D6E8-F0A1-4B5C-8D9E-1A2B3C4D5E6F</string>
+            <key>PayloadParentUUID</key>
+            <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>
+            <key>PayloadDisplayName</key>
             <string>Jamf Connect Login Configuration</string>
             
             <!-- OIDC Provider Configuration -->
@@ -63,7 +66,8 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-            <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>    <key>PayloadVersion</key>
+    <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>
+    <key>PayloadVersion</key>
     <integer>1</integer>
 </dict>
 </plist>
