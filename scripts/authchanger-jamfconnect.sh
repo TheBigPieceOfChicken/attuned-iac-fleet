@@ -14,6 +14,29 @@ if [ ! -f "/usr/local/bin/authchanger" ]; then
     exit 1
 fi
 
+# Wait for Jamf Connect Login profile to be installed (max 5 minutes)
+echo "$(date): Waiting for Jamf Connect Login profile to be installed..." >> "$LOGFILE"
+MAX_WAIT=300  # 5 minutes
+WAIT_INTERVAL=10  # Check every 10 seconds
+ELAPSED=0
+
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+    # Check if the Jamf Connect Login profile is installed by looking for its payload
+    if /usr/bin/profiles -P | /usr/bin/grep -q "com.jamf.connect.login"; then
+        echo "$(date): Jamf Connect Login profile detected" >> "$LOGFILE"
+        break
+    fi
+    
+    echo "$(date): Profile not yet installed, waiting ${WAIT_INTERVAL}s..." >> "$LOGFILE"
+    sleep $WAIT_INTERVAL
+    ELAPSED=$((ELAPSED + WAIT_INTERVAL))
+done
+
+if [ $ELAPSED -ge $MAX_WAIT ]; then
+    echo "$(date): TIMEOUT - Jamf Connect Login profile not installed after ${MAX_WAIT}s" >> "$LOGFILE"
+    exit 1
+fi
+
 # Run authchanger to activate Jamf Connect
 echo "$(date): Running authchanger -reset -JamfConnect" >> "$LOGFILE"
 /usr/local/bin/authchanger -reset -JamfConnect
