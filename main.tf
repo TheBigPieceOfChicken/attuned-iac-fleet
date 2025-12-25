@@ -107,6 +107,45 @@ resource "jamfpro_policy" "patch_jamf_connect" {
   }
 }
 
+# ====================================================================================
+# Script Resource ~ Jamf Connect AuthChanger Activation
+# ====================================================================================
+resource "jamfpro_script" "authchanger_jamfconnect" {
+  name             = "010-IDM-JamfConnect-AuthChanger"
+  info             = "Activates Jamf Connect Login window by running authchanger -reset -JamfConnect"
+  notes            = "Created via Terraform IaC - Run at enrollment completion to enable OIDC authentication"
+  priority         = "AFTER"
+  os_requirements  = "10.14.x"
+  script_contents  = file("${path.root}/scripts/authchanger-jamfconnect.sh")
+}
+
+# ====================================================================================
+# Policy Resource ~ Jamf Connect AuthChanger (Enrollment Complete Trigger)
+# ====================================================================================
+resource "jamfpro_policy" "jamfconnect_authchanger" {
+  name                            = "010-IDM-JamfConnect-AuthChanger-ALL"
+  enabled                         = true
+  category_id                     = "14"
+  trigger_checkin                 = false
+  trigger_enrollment_complete     = true
+  trigger_login                   = false
+  trigger_network_state_changed   = false
+  trigger_startup                 = false
+  frequency                       = "Once per computer"
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      id       = jamfpro_script.authchanger_jamfconnect.id
+      priority = "After"
+    }
+  }
+}
+
 # ================================================================================
 # PPPC Profiles
 # ================================================================================
