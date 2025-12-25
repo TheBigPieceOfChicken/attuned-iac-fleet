@@ -30,6 +30,21 @@
 
             <key>OIDCNewPassword</key>
             <true/>
+
+		<key>OIDCScopes</key>
+		<string>openid email profile</string>
+
+		<key>NetworkCheck</key>
+		<string>https://www.google.com</string>
+
+		<key>EnableVerboseLogging</key>
+		<true/>
+
+		<key>LoginWindowMessage</key>
+		<string>Sign in with your attuned.it Google account</string>
+
+		<key>HideGetStartedExperience</key>
+		<true/>
             
             <!-- User Account Configuration -->
             <key>CreateAdminUser</key>
