@@ -115,7 +115,6 @@ resource "jamfpro_script" "authchanger_jamfconnect" {
   info             = "Activates Jamf Connect Login window by running authchanger -reset -JamfConnect"
   notes            = "Created via Terraform IaC - Run at enrollment completion to enable OIDC authentication"
   priority         = "AFTER"
-  os_requirements  = "10.14.x"
   script_contents  = file("${path.root}/scripts/authchanger-jamfconnect.sh")
 }
 
