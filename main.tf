@@ -548,18 +548,18 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   }
 
   # Required: Account Settings Block
- account_settings {
+account_settings {
   payload_configured                           = true
   local_admin_account_enabled                  = true
-  admin_username                               = "jamfadmin"
-  admin_password                               = var.prestage_admin_password  # ← Reference the variable
+  admin_username                               = "__localadmin"
+  admin_password                               = "Kyle-Admin-73-="
   hidden_admin_account                         = true
   local_user_managed                           = false
   user_account_type                            = "SKIP"
   prefill_primary_account_info_feature_enabled = false
   prefill_type                                 = "UNKNOWN"
-  prefill_account_full_name                    = ""
-  prefill_account_user_name                    = ""
+  prefill_account_full_name                    = "Local JAMFAdmin"
+  prefill_account_user_name                    = "__localadmin"
   prevent_prefill_info_from_modification       = false
 }
 }
