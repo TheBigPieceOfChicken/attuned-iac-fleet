@@ -24,7 +24,3 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_license" {
   }
 }
 
-import {
-  to = jamfpro_macos_configuration_profile_plist.jamf_connect_license
-  id = "122"
-}
