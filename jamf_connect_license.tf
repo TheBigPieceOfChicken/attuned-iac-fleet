@@ -23,3 +23,12 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_license" {
     all_computers = true
   }
 }
+
+import {
+  to = jamfpro_macos_configuration_profile_plist.jamf_connect_license
+  id = "122"
+}
+
+resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_license" {
+  # ... rest of your resource
+}
