@@ -52,10 +52,13 @@ variable "client" {
       tenant_id = string
     })
 
-    google_idp = object({
-      client_id = string
-      tenant    = string
-    })
+google_idp = object({
+  client_id     = string
+  client_secret = string
+  tenant        = string
+})
+
   })
   sensitive = true
 }
+
