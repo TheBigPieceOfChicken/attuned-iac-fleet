@@ -610,16 +610,47 @@ account_settings {
 
 module "categories" {
   source = "./modules/baseline-categories"
+
+  # Only create categories that DON'T already exist in your tenant
+  # Remove any that already exist (like Security)
+  categories = {
+    "identity"      = { name = "Identity", priority = 1 }
+    # "security"    = { name = "Security", priority = 2 }  # Already exists - skip
+    "productivity"  = { name = "Productivity", priority = 3 }
+    "utilities"     = { name = "Utilities", priority = 4 }
+    "communication" = { name = "Communication", priority = 5 }
+    "management"    = { name = "Management", priority = 6 }
+  }
 }
 
 module "smart_groups" {
   source = "./modules/baseline-smart-groups"
-}
 
-output "category_ids" {
-  value = module.categories.category_ids
-}
-
-output "smart_group_ids" {
-  value = module.smart_groups.smart_group_ids
+  # Simplified groups without dependency on non-existent groups
+  smart_groups = {
+    "macos-sequoia" = {
+      name = "macOS Sequoia (15.x)"
+      criteria = [{
+        name          = "Operating System Version"
+        priority      = 0
+        and_or        = "and"
+        search_type   = "like"
+        value         = "15."
+        opening_paren = false
+        closing_paren = false
+      }]
+    }
+    "macos-sonoma" = {
+      name = "macOS Sonoma (14.x)"
+      criteria = [{
+        name          = "Operating System Version"
+        priority      = 0
+        and_or        = "and"
+        search_type   = "like"
+        value         = "14."
+        opening_paren = false
+        closing_paren = false
+      }]
+    }
+  }
 }
