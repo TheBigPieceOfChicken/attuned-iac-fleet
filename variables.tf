@@ -30,3 +30,32 @@ variable "jamf_connect_license_base64" {
   type        = string
   sensitive   = true
 }
+
+variable "client" {
+  description = "Client-specific configuration"
+  type = object({
+    name         = string
+    organization = string
+
+    jamf_connect = object({
+      license_key     = string
+      email           = string
+      date_issued     = string
+      expiration_date = string
+      signature       = string
+      edition         = string
+      major_version   = number
+      num_clients     = number
+    })
+
+    jamf_protect = object({
+      tenant_id = string
+    })
+
+    google_idp = object({
+      client_id = string
+      tenant    = string
+    })
+  })
+  sensitive = true
+}
