@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>PayloadType</key>
+            <string>com.jamf.connect.login</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadIdentifier</key>
+            <string>com.attuned.jamfconnect.login.settings</string>
+            <key>PayloadUUID</key>
+            <string>B2C4D6E8-F0A1-4B5C-8D9E-1A2B3C4D5E6F</string>
+            <key>PayloadParentUUID</key>
+            <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>
+            <key>PayloadDisplayName</key>
+            <string>Jamf Connect Login Configuration</string>
+            
+            <!-- OIDC Provider Configuration -->
+            <key>OIDCProvider</key>
+            <string>GoogleID</string>            
+            <key>OIDCClientID</key>
+            <string>${google_client_id}</string>
+            <key>OIDCClientSecret</key>
+            <string>${google_client_secret}</string>
+            <key>OIDCRedirectURI</key>
+            <string>https://127.0.0.1/jamfconnect</string>
+            <key>OIDCTenant</key>
+            <string>${google_tenant}</string>
+
+            <key>OIDCNewPassword</key>
+            <true/>
+
+            <key>OIDCScopes</key>
+            <string>openid email profile</string>
+
+            <key>NetworkCheck</key>
+            <string>https://www.google.com</string>
+
+            <key>EnableVerboseLogging</key>
+            <true/>
+
+            <key>LoginWindowMessage</key>
+            <string>Sign in with your ${google_tenant} Google account</string>
+
+            <key>HideGetStartedExperience</key>
+            <true/>
+            
+            <!-- User Account Configuration -->
+            <key>CreateAdminUser</key>
+            <false/>
+            <key>DemobilizationPasswordChanges</key>
+            <true/>
+            <key>LocalPasswordSync</key>
+            <true/>
+            <key>EnableFDE</key>
+            <true/>
+            <key>EnableFDERecoveryKey</key>
+            <true/>
+            
+            <!-- Username Format -->
+            <key>DontMatchKerberosToAccountname</key>
+            <false/>
+            
+            <!-- Login Window Customization -->
+            <key>LoginLogo</key>
+            <string>/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/BookmarkIcon.icns</string>
+            <key>BackgroundImage</key>
+            <string></string>
+            
+            <!-- Password Management -->
+            <key>LocalFallback</key>
+            <true/>
+            <key>PasswordExpiration</key>
+            <integer>0</integer>
+            <key>PasswordExpirationGracePeriod</key>
+            <integer>7</integer>
+        </dict>
+    </array>
+    <key>PayloadDisplayName</key>
+    <string>008-IDM-JamfConnect-Login-ALL</string>
+    <key>PayloadIdentifier</key>
+    <string>com.attuned.jamfconnect.login</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>8A7F3BC1-E2D9-4F56-A1C8-9E3D5B6F7A2E</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
