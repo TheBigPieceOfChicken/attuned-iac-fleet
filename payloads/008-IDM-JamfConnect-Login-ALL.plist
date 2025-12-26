@@ -25,24 +25,26 @@
             <string>208701094348-1vu748u2u1hu7uuh58g8qfoauk4vlksp.apps.googleusercontent.com</string>
             <key>OIDCRedirectURI</key>
             <string>https://127.0.0.1/jamfconnect</string>
+            <key>OIDCTenant</key>
+            <string>attuned.it</string>
 
             <key>OIDCNewPassword</key>
             <true/>
 
-		<key>OIDCScopes</key>
-		<string>openid email profile</string>
+            <key>OIDCScopes</key>
+            <string>openid email profile</string>
 
-		<key>NetworkCheck</key>
-		<string>https://www.google.com</string>
+            <key>NetworkCheck</key>
+            <string>https://www.google.com</string>
 
-		<key>EnableVerboseLogging</key>
-		<true/>
+            <key>EnableVerboseLogging</key>
+            <true/>
 
-		<key>LoginWindowMessage</key>
-		<string>Sign in with your attuned.it Google account</string>
+            <key>LoginWindowMessage</key>
+            <string>Sign in with your attuned.it Google account</string>
 
-		<key>HideGetStartedExperience</key>
-		<true/>
+            <key>HideGetStartedExperience</key>
+            <true/>
             
             <!-- User Account Configuration -->
             <key>CreateAdminUser</key>
