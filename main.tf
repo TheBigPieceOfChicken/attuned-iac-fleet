@@ -519,11 +519,11 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   region                                    = ""
   enrollment_customization_id               = "0"
   install_profiles_during_setup             = true
-    prestage_installed_profile_ids = [
-    "122",  # Jamf Connect License
-    jamfpro_macos_configuration_profile_plist.jamf_connect_login.id,
-    jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id
-  ]
+prestage_installed_profile_ids = [
+  jamfpro_macos_configuration_profile_plist.jamf_connect_license.id,  # NEW
+  jamfpro_macos_configuration_profile_plist.jamf_connect_login.id,
+  jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id
+]
 
   custom_package_ids                        = ["24"]
   custom_package_distribution_point_id      = "-2"
