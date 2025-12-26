@@ -25,8 +25,6 @@
             <string>208701094348-1vu748u2u1hu7uuh58g8qfoauk4vlksp.apps.googleusercontent.com</string>
             <key>OIDCRedirectURI</key>
             <string>https://127.0.0.1/jamfconnect</string>
-            <key>OIDCROPGID</key>
-            <string>attuned.it</string>
 
             <key>OIDCNewPassword</key>
             <true/>
