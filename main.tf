@@ -9,7 +9,11 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
   category_id         = "-1"
   distribution_method = "Install Automatically"
   level               = "System"
-  payloads            = file("${path.root}/payloads/008-IDM-JamfConnect-Login-ALL.plist")
+  payloads            = templatefile("${path.root}/payloads/008-IDM-JamfConnect-Login-ALL.plist.tpl", {
+    google_client_id     = var.client.google_idp.client_id
+    google_client_secret = var.client.google_idp.client_secret
+    google_tenant        = var.client.google_idp.tenant
+  })
   redeploy_on_update  = "Newly Assigned"
   payload_validate    = false
 
@@ -18,6 +22,7 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
     all_jss_users = false
   }
 }
+
 
 # Configuration Profile: 009-IDM-JamfConnect-PrivilegeElevation-ALL (ID: 121)
 resource "jamfpro_macos_configuration_profile_plist" "jamfconnect_privilege_elevation" {
