@@ -14,27 +14,40 @@ if [ ! -f "/usr/local/bin/authchanger" ]; then
     exit 1
 fi
 
-# Wait for Jamf Connect Login profile to be installed (max 5 minutes)
-echo "$(date): Waiting for Jamf Connect Login profile to be installed..." >> "$LOGFILE"
-MAX_WAIT=300  # 5 minutes
-WAIT_INTERVAL=10  # Check every 10 seconds
+# Wait for BOTH Jamf Connect profiles to be installed (max 5 minutes)
+echo "$(date): Waiting for Jamf Connect profiles to be installed..." >> "$LOGFILE"
+MAX_WAIT=300
+WAIT_INTERVAL=10
 ELAPSED=0
 
+LOGIN_PROFILE="com.jamf.connect.login"
+LICENSE_PROFILE="com.jamf.connect.license"
+
 while [ $ELAPSED -lt $MAX_WAIT ]; do
-    # Check if the Jamf Connect Login profile is installed by looking for its payload
-    if /usr/bin/profiles -P | /usr/bin/grep -q "com.jamf.connect.login"; then
-        echo "$(date): Jamf Connect Login profile detected" >> "$LOGFILE"
+    LOGIN_FOUND=false
+    LICENSE_FOUND=false
+    
+    if /usr/bin/profiles -P 2>/dev/null | /usr/bin/grep -q "$LOGIN_PROFILE"; then
+        LOGIN_FOUND=true
+    fi
+    
+    if /usr/bin/profiles -P 2>/dev/null | /usr/bin/grep -q "$LICENSE_PROFILE"; then
+        LICENSE_FOUND=true
+    fi
+    
+    if [ "$LOGIN_FOUND" = true ] && [ "$LICENSE_FOUND" = true ]; then
+        echo "$(date): Both Jamf Connect profiles detected" >> "$LOGFILE"
         break
     fi
     
-    echo "$(date): Profile not yet installed, waiting ${WAIT_INTERVAL}s..." >> "$LOGFILE"
+    echo "$(date): Waiting... Login=$LOGIN_FOUND, License=$LICENSE_FOUND" >> "$LOGFILE"
     sleep $WAIT_INTERVAL
     ELAPSED=$((ELAPSED + WAIT_INTERVAL))
 done
 
 if [ $ELAPSED -ge $MAX_WAIT ]; then
-    echo "$(date): TIMEOUT - Jamf Connect Login profile not installed after ${MAX_WAIT}s" >> "$LOGFILE"
-    exit 1
+    echo "$(date): TIMEOUT - Profiles not installed after ${MAX_WAIT}s" >> "$LOGFILE"
+    echo "$(date): Proceeding anyway to avoid blocking enrollment" >> "$LOGFILE"
 fi
 
 # Run authchanger to activate Jamf Connect
