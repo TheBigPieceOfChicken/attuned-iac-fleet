@@ -604,3 +604,22 @@ account_settings {
   prevent_prefill_info_from_modification       = false
 }
 }
+# =============================================================================
+# MODULES - Baseline Infrastructure
+# =============================================================================
+
+module "categories" {
+  source = "./modules/baseline-categories"
+}
+
+module "smart_groups" {
+  source = "./modules/baseline-smart-groups"
+}
+
+output "category_ids" {
+  value = module.categories.category_ids
+}
+
+output "smart_group_ids" {
+  value = module.smart_groups.smart_group_ids
+}
