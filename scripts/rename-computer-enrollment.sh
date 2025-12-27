@@ -3,35 +3,29 @@
 ################################################################################
 # Jamf Pro Enrollment Script - Secure Computer Naming with Hex
 # Generates random, memorable device names using dictionary words + hex suffix
-# Format: ABC-defgh-xxxx (e.g., dog-chien-ba83)
-#
-# Naming Convention:
-# - 3-letter word (uppercase)
-# - 5-letter word (lowercase)  
-# - 4-character hex (lowercase)
-# Total: 3+1+5+1+4 = 14 chars (NetBIOS safe, memorable)
-#
-# Security Benefits:
-# - No PII exposure (no usernames/emails/serial numbers)
-# - 65,536 unique hex combinations per word pair
-# - Pronounceable for phone support
-# - Short enough for NetBIOS (15 char limit)
-# - OPSEC-friendly for distributed/remote workforce
+# Format: ABC-defgh-xxxx (e.g., DOG-chien-ba83)
 ################################################################################
 
-# Path to system dictionary
 DICT_PATH="/usr/share/dict/words"
 
-# Function to get random 3-letter word (uppercase)
+# Function to get random 3-letter word (converted to uppercase)
 get_3letter_word() {
-    grep -E '^[A-Z]{3}$' "$DICT_PATH" 2>/dev/null | \
-    shuf -n 1 || echo "DOG"  # Fallback
+    word=$(grep -E '^[A-Za-z]{3}$' "$DICT_PATH" 2>/dev/null | shuf -n 1)
+    if [ -n "$word" ]; then
+        echo "$word" | tr '[:lower:]' '[:upper:]'
+    else
+        echo "MAC"
+    fi
 }
 
-# Function to get random 5-letter word (lowercase)
+# Function to get random 5-letter word (converted to lowercase)
 get_5letter_word() {
-    grep -E '^[a-z]{5}$' "$DICT_PATH" 2>/dev/null | \
-    shuf -n 1 || echo "chien"  # Fallback
+    word=$(grep -E '^[A-Za-z]{5}$' "$DICT_PATH" 2>/dev/null | shuf -n 1)
+    if [ -n "$word" ]; then
+        echo "$word" | tr '[:upper:]' '[:lower:]'
+    else
+        echo "apple"
+    fi
 }
 
 # Generate random 4-character hex (lowercase)
