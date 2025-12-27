@@ -433,7 +433,7 @@ resource "jamfpro_policy" "sec_enforce_password" {
 
 # Reference existing package (upload to JAMF first)
 data "jamfpro_package" "dockutil" {
-  name = "dockutil-3.1.3.pkg"
+  id = "27"
 }
 
 # Script: Configure Dock
