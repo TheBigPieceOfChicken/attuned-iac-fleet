@@ -27,6 +27,8 @@
             <string>${google_client_secret}</string>
             <key>OIDCRedirectURI</key>
             <string>https://127.0.0.1/jamfconnect</string>
+            <key>OIDCAuthEndpoint</key>
+<string>https://accounts.google.com/o/oauth2/v2/auth?prompt=login</string>
             <key>OIDCTenant</key>
             <string>${google_tenant}</string>
 
