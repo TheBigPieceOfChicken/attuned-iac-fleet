@@ -31,7 +31,7 @@
             <string>${google_tenant}</string>
 
             <key>OIDCNewPassword</key>
-            <true/>
+            <false/>
 
             <key>OIDCScopes</key>
             <string>openid email profile</string>
