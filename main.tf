@@ -405,12 +405,10 @@ resource "jamfpro_policy" "patch_jamf_connect" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "jamfconnect"
-        parameter5 = "NOTIFY=silent"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "jamfconnect"
+      parameter5 = "NOTIFY=silent"
     }
   }
 }
@@ -431,12 +429,10 @@ resource "jamfpro_policy" "install_chrome" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "googlechrome"
-        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "googlechrome"
+      parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
     }
   }
 }
@@ -457,12 +453,10 @@ resource "jamfpro_policy" "install_slack" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "slack"
-        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "slack"
+      parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
     }
   }
 }
@@ -483,12 +477,10 @@ resource "jamfpro_policy" "install_zoom" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "zoom"
-        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "zoom"
+      parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
     }
   }
 }
@@ -509,12 +501,10 @@ resource "jamfpro_policy" "install_google_drive" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "googledrive"
-        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "googledrive"
+      parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
     }
   }
 }
@@ -535,12 +525,10 @@ resource "jamfpro_policy" "install_keeper" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "keeperpasswordmanager"
-        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "keeperpasswordmanager"
+      parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
     }
   }
 }
@@ -561,12 +549,10 @@ resource "jamfpro_policy" "install_dockutil" {
 
   payloads {
     scripts {
-      script {
-        id         = jamfpro_script.installomator.id
-        priority   = "After"
-        parameter4 = "dockutil"
-        parameter5 = "NOTIFY=silent"
-      }
+      id         = jamfpro_script.installomator.id
+      priority   = "After"
+      parameter4 = "dockutil"
+      parameter5 = "NOTIFY=silent"
     }
   }
 }
@@ -597,10 +583,8 @@ resource "jamfpro_policy" "configure_dock" {
 
   payloads {
     scripts {
-      script {
-        id       = jamfpro_script.configure_dock.id
-        priority = "After"
-      }
+      id       = jamfpro_script.configure_dock.id
+      priority = "After"
     }
   }
 }
