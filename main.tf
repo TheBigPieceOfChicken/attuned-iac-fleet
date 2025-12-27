@@ -41,6 +41,26 @@ resource "jamfpro_macos_configuration_profile_plist" "jamfconnect_privilege_elev
   }
 }
 
+# Configuration Profile: 011-IDM-JamfConnect-MenuBar-ALL (Self Service+)
+resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_menubar" {
+  name              = "011-IDM-JamfConnect-MenuBar-ALL"
+  description       = "Jamf Connect Menu Bar and Self Service+ - Google OIDC"
+  category_id       = "-1"
+  distribution_method = "Install Automatically"
+  level             = "System"
+  payloads          = templatefile("${path.root}/payloads/011-IDM-JamfConnect-MenuBar-ALL.plist.tpl", {
+    google_client_id = var.client.google_idp.client_id
+  })
+  redeploy_on_update = "Newly Assigned"
+  payload_validate   = false
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+}
+
+
 # ==============================================================================
 # Script Resource - 00__Start JC Notify (OIDC Compatible)
 # ==============================================================================
@@ -525,10 +545,12 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
   enrollment_customization_id               = "0"
   install_profiles_during_setup             = true
 prestage_installed_profile_ids = [
-  jamfpro_macos_configuration_profile_plist.jamf_connect_license.id,  # NEW
+  jamfpro_macos_configuration_profile_plist.jamf_connect_license.id,
   jamfpro_macos_configuration_profile_plist.jamf_connect_login.id,
-  jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id
+  jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id,
+  jamfpro_macos_configuration_profile_plist.jamf_connect_menubar.id
 ]
+
 
   custom_package_ids                        = ["24"]
   custom_package_distribution_point_id      = "-2"
