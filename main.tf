@@ -804,13 +804,12 @@ resource "jamfpro_script" "rename_computer" {
   script_contents = file("${path.module}/scripts/rename-computer-enrollment.sh")
   category_id     = -1
   info            = "Generates random memorable device names: ABC-defgh-xxxx format"
-  notes           = "Created via Terraform IaC - Runs at enrollment for OPSEC-friendly naming"
 }
 
 resource "jamfpro_policy" "rename_computer" {
   name                        = "Rename Computer - Enrollment"
   enabled                     = true
-  trigger_checkin             = false
+  trigger_checkin             = true
   trigger_enrollment_complete = true
   frequency                   = "Once per computer"
   category_id                 = -1
@@ -831,6 +830,7 @@ resource "jamfpro_policy" "rename_computer" {
     }
   }
 }
+
 
 # =============================================================================
 # MODULES - Baseline Infrastructure
