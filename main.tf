@@ -456,7 +456,7 @@ resource "jamfpro_policy" "configure_dock" {
 
   payloads {
     packages {
-      distribution_point = "-2"
+      distribution_point = "cloud"
       package {
         id     = "27"
         action = "Install"
