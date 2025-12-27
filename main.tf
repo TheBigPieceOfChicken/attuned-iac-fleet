@@ -789,6 +789,43 @@ resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
     prevent_prefill_info_from_modification       = false
   }
 }
+# ============================================================================
+# COMPUTER NAMING
+# ============================================================================
+
+resource "jamfpro_script" "rename_computer" {
+  name            = "Rename-Computer-Hex"
+  priority        = "AFTER"
+  script_contents = file("${path.module}/scripts/rename-computer-enrollment.sh")
+  category_id     = -1
+  info            = "Generates random memorable device names: ABC-defgh-xxxx format"
+  notes           = "Created via Terraform IaC - Runs at enrollment for OPSEC-friendly naming"
+}
+
+resource "jamfpro_policy" "rename_computer" {
+  name                        = "Rename Computer - Enrollment"
+  enabled                     = true
+  trigger_checkin             = false
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      id       = jamfpro_script.rename_computer.id
+      priority = "After"
+    }
+
+    maintenance {
+      recon = true
+    }
+  }
+}
 
 # =============================================================================
 # MODULES - Baseline Infrastructure
