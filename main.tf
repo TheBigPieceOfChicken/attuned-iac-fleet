@@ -456,6 +456,7 @@ resource "jamfpro_policy" "configure_dock" {
 
   payloads {
     packages {
+      distribution_point = "-2"
       package {
         id     = "27"
         action = "Install"
@@ -468,6 +469,7 @@ resource "jamfpro_policy" "configure_dock" {
     }
   }
 }
+
 
 # ================================================================================
 # Self Service+ Settings
