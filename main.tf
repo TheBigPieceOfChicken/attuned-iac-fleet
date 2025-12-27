@@ -355,7 +355,7 @@ resource "jamfpro_script" "enforce_gatekeeper" {
   info            = "Enforces Gatekeeper settings - requires App Store and identified developers"
   notes           = "Created via Terraform IaC - Part of security baseline enforcement"
   priority        = "AFTER"
-  os_requirements = "10.14.x"
+  os_requirements = ""
   script_contents = file("${path.root}/scripts/enforce-gatekeeper.sh")
 }
 
@@ -364,7 +364,7 @@ resource "jamfpro_script" "enforce_password" {
   info            = "Enforces password complexity requirements via pwpolicy"
   notes           = "Created via Terraform IaC - Part of security baseline enforcement"
   priority        = "AFTER"
-  os_requirements = "10.14.x"
+  os_requirements = ""
   script_contents = file("${path.root}/scripts/enforce-password-policy.sh")
 }
 
@@ -424,6 +424,52 @@ resource "jamfpro_policy" "sec_enforce_password" {
 
     maintenance {
       recon = true
+    }
+  }
+}
+# ============================================================================
+# DOCK CUSTOMIZATION
+# ============================================================================
+
+# Reference existing package (upload to JAMF first)
+data "jamfpro_package" "dockutil" {
+  name = "dockutil-3.1.3.pkg"
+}
+
+# Script: Configure Dock
+resource "jamfpro_script" "configure_dock" {
+  name            = "Configure-Dock"
+  priority        = "AFTER"
+  info            = "Configures dock - removes default apps, adds Chrome"
+  script_contents = file("${path.root}/scripts/configure-dock.sh")
+}
+
+# Policy: Run dock config at enrollment
+resource "jamfpro_policy" "configure_dock" {
+  name                        = "Configure Dock - Enrollment"
+  enabled                     = true
+  trigger_checkin             = false
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = "-1"
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    packages {
+      distribution_point = "default"
+      package {
+        id     = data.jamfpro_package.dockutil.id
+        action = "Install"
+      }
+    }
+
+    scripts {
+      id       = jamfpro_script.configure_dock.id
+      priority = "After"
     }
   }
 }
