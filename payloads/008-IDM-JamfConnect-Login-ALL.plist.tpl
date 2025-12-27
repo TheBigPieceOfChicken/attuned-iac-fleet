@@ -35,6 +35,9 @@
             <key>OIDCNewPassword</key>
             <false/>
 
+<key>OIDCUsePassthroughAuth</key>
+<true/>
+
             <key>OIDCScopes</key>
             <string>openid email profile</string>
 
