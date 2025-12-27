@@ -23,7 +23,6 @@ resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_login" {
   }
 }
 
-
 # Configuration Profile: 009-IDM-JamfConnect-PrivilegeElevation-ALL (ID: 121)
 resource "jamfpro_macos_configuration_profile_plist" "jamfconnect_privilege_elevation" {
   name                = "009-IDM-JamfConnect-PrivilegeElevation-ALL"
@@ -43,23 +42,22 @@ resource "jamfpro_macos_configuration_profile_plist" "jamfconnect_privilege_elev
 
 # Configuration Profile: 011-IDM-JamfConnect-MenuBar-ALL (Self Service+)
 resource "jamfpro_macos_configuration_profile_plist" "jamf_connect_menubar" {
-  name              = "011-IDM-JamfConnect-MenuBar-ALL"
-  description       = "Jamf Connect Menu Bar and Self Service+ - Google OIDC"
-  category_id       = "-1"
+  name                = "011-IDM-JamfConnect-MenuBar-ALL"
+  description         = "Jamf Connect Menu Bar and Self Service+ - Google OIDC"
+  category_id         = "-1"
   distribution_method = "Install Automatically"
-  level             = "System"
-  payloads          = templatefile("${path.root}/payloads/011-IDM-JamfConnect-MenuBar-ALL.plist.tpl", {
+  level               = "System"
+  payloads            = templatefile("${path.root}/payloads/011-IDM-JamfConnect-MenuBar-ALL.plist.tpl", {
     google_client_id = var.client.google_idp.client_id
   })
-  redeploy_on_update = "Newly Assigned"
-  payload_validate   = false
+  redeploy_on_update  = "Newly Assigned"
+  payload_validate    = false
 
   scope {
     all_computers = true
     all_jss_users = false
   }
 }
-
 
 # ==============================================================================
 # Script Resource - 00__Start JC Notify (OIDC Compatible)
@@ -76,86 +74,30 @@ resource "jamfpro_script" "start_jc_notify" {
   script_contents = file("${path.root}/scripts/00__Start-JC-Notify.sh")
 }
 
-# ==============================================================================
-# Script Resource ~ Installomator (Application Deployment)
-# ==============================================================================
-
-import {
-  to = jamfpro_script.installomator
-  id = "14"
-}
-
-resource "jamfpro_script" "installomator" {
-  name            = "Installomator"
-  priority        = "AFTER"
-  script_contents = "# Managed by import - content pulled from existing Jamf Pro script ID 14"
-
-  lifecycle {
-    ignore_changes = [script_contents]
-  }
-}
-
-# ===========================================================================
-# Policy Resource ~ Patch Jamf Connect Latest
-# ===========================================================================
-
-resource "jamfpro_policy" "patch_jamf_connect" {
-  name                          = "Patch Jamf Connect Latest"
-  enabled                       = true
-  category_id                   = "14"
-  trigger_checkin               = true
-  trigger_enrollment_complete   = false
-  trigger_login                 = false
-  trigger_network_state_changed = false
-  trigger_startup               = false
-  trigger_other                 = "none"
-  frequency                     = "Once per computer"
-  retry_event                   = "none"
-  retry_attempts                = -1
-  notify_on_each_failed_retry   = false
-  target_drive                  = "/"
-  offline                       = false
-
-  payloads {
-    packages {
-      distribution_point = "default"
-      package {
-        id     = "24"
-        action = "Install"
-      }
-    }
-  }
-
-  scope {
-    all_jss_users = false
-    all_computers = true
-  }
-}
-
 # ====================================================================================
 # Script Resource ~ Jamf Connect AuthChanger Activation
 # ====================================================================================
 resource "jamfpro_script" "authchanger_jamfconnect" {
-  name             = "010-IDM-JamfConnect-AuthChanger"
-  info             = "Activates Jamf Connect Login window by running authchanger -reset -JamfConnect"
-  notes            = "Created via Terraform IaC - Run at enrollment completion to enable OIDC authentication"
-  priority         = "AFTER"
-  script_contents  = file("${path.root}/scripts/authchanger-jamfconnect.sh")
+  name            = "010-IDM-JamfConnect-AuthChanger"
+  info            = "Activates Jamf Connect Login window by running authchanger -reset -JamfConnect"
+  notes           = "Created via Terraform IaC - Run at enrollment completion to enable OIDC authentication"
+  priority        = "AFTER"
+  script_contents = file("${path.root}/scripts/authchanger-jamfconnect.sh")
 }
 
 # ====================================================================================
 # Policy Resource ~ Jamf Connect AuthChanger (Enrollment Complete Trigger)
 # ====================================================================================
 resource "jamfpro_policy" "jamfconnect_authchanger" {
-  name                            = "010-IDM-JamfConnect-AuthChanger-ALL"
-  enabled                         = true
-  category_id                     = "14"
-  trigger_checkin                 = false
-  trigger_enrollment_complete     = true
-  trigger_login                   = false
-  trigger_network_state_changed   = false
-  trigger_startup                 = false
-  frequency                       = "Once per computer"
+  name                          = "010-IDM-JamfConnect-AuthChanger-ALL"
+  enabled                       = true
+  category_id                   = "14"
+  trigger_checkin               = false
+  trigger_enrollment_complete   = true
+  trigger_login                 = false
+  trigger_network_state_changed = false
+  trigger_startup               = false
+  frequency                     = "Once per computer"
 
   scope {
     all_computers = true
@@ -428,6 +370,240 @@ resource "jamfpro_policy" "sec_enforce_password" {
   }
 }
 
+# ============================================================================
+# INSTALLOMATOR DEPLOYMENT
+# ============================================================================
+
+resource "jamfpro_script" "installomator" {
+  name            = "Installomator"
+  priority        = "BEFORE"
+  script_contents = file("${path.module}/scripts/Installomator.sh")
+  category_id     = -1
+  info            = "Installomator v10.9 - https://github.com/Installomator/Installomator"
+  os_requirements = ""
+  parameter4      = "Label"
+  parameter5      = "Options"
+}
+
+# ============================================================================
+# APP INSTALLATION POLICIES (via Installomator)
+# ============================================================================
+
+# Policy: Install Jamf Connect (replaces package-based policy)
+resource "jamfpro_policy" "patch_jamf_connect" {
+  name                        = "Patch Jamf Connect Latest"
+  enabled                     = true
+  category_id                 = "14"
+  trigger_checkin             = true
+  trigger_enrollment_complete = false
+  frequency                   = "Once per computer"
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "jamfconnect"
+        parameter5 = "NOTIFY=silent"
+      }
+    }
+  }
+}
+
+# Policy: Install Google Chrome
+resource "jamfpro_policy" "install_chrome" {
+  name                        = "Install - Google Chrome"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "googlechrome"
+        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
+      }
+    }
+  }
+}
+
+# Policy: Install Slack
+resource "jamfpro_policy" "install_slack" {
+  name                        = "Install - Slack"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "slack"
+        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
+      }
+    }
+  }
+}
+
+# Policy: Install Zoom
+resource "jamfpro_policy" "install_zoom" {
+  name                        = "Install - Zoom"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "zoom"
+        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
+      }
+    }
+  }
+}
+
+# Policy: Install Google Drive
+resource "jamfpro_policy" "install_google_drive" {
+  name                        = "Install - Google Drive"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "googledrive"
+        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
+      }
+    }
+  }
+}
+
+# Policy: Install Keeper Password Manager
+resource "jamfpro_policy" "install_keeper" {
+  name                        = "Install - Keeper Password Manager"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "keeperpasswordmanager"
+        parameter5 = "NOTIFY=silent BLOCKING_PROCESS_ACTION=kill"
+      }
+    }
+  }
+}
+
+# Policy: Install Dockutil
+resource "jamfpro_policy" "install_dockutil" {
+  name                        = "Install - Dockutil"
+  enabled                     = true
+  trigger_checkin             = true
+  trigger_enrollment_complete = true
+  frequency                   = "Once per computer"
+  category_id                 = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id         = jamfpro_script.installomator.id
+        priority   = "After"
+        parameter4 = "dockutil"
+        parameter5 = "NOTIFY=silent"
+      }
+    }
+  }
+}
+
+# ============================================================================
+# DOCK CONFIGURATION
+# ============================================================================
+
+resource "jamfpro_script" "configure_dock" {
+  name            = "Configure-Dock"
+  priority        = "AFTER"
+  script_contents = file("${path.module}/scripts/configure-dock.sh")
+  category_id     = -1
+  info            = "Configures dock with standard apps"
+}
+
+resource "jamfpro_policy" "configure_dock" {
+  name            = "Configure Dock"
+  enabled         = true
+  trigger_checkin = true
+  frequency       = "Once per computer"
+  category_id     = -1
+
+  scope {
+    all_computers = true
+    all_jss_users = false
+  }
+
+  payloads {
+    scripts {
+      script {
+        id       = jamfpro_script.configure_dock.id
+        priority = "After"
+      }
+    }
+  }
+}
 
 # ================================================================================
 # Self Service+ Settings
@@ -525,33 +701,32 @@ import {
 }
 
 resource "jamfpro_computer_prestage_enrollment" "filevault_jamf_connect" {
-  display_name                              = "Jamf Connect - Google OIDC"
-  mandatory                                 = true
-  mdm_removable                             = false
-  support_phone_number                      = ""
-  support_email_address                     = ""
-  department                                = ""
-  default_prestage                          = false
-  enrollment_site_id                        = "-1"
-  keep_existing_site_membership             = false
-  keep_existing_location_information        = false
-  require_authentication                    = false
-  authentication_prompt                     = "Sign in with your Google Workspace credentials"
-  prevent_activation_lock                   = true
-  enable_device_based_activation_lock       = false
-  device_enrollment_program_instance_id     = "1"
-  auto_advance_setup                        = true
-  language                                  = ""
-  region                                    = ""
-  enrollment_customization_id               = "0"
-  install_profiles_during_setup             = true
-prestage_installed_profile_ids = [
-  jamfpro_macos_configuration_profile_plist.jamf_connect_license.id,
-  jamfpro_macos_configuration_profile_plist.jamf_connect_login.id,
-  jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id,
-  jamfpro_macos_configuration_profile_plist.jamf_connect_menubar.id
-]
-
+  display_name                          = "Jamf Connect - Google OIDC"
+  mandatory                             = true
+  mdm_removable                         = false
+  support_phone_number                  = ""
+  support_email_address                 = ""
+  department                            = ""
+  default_prestage                      = false
+  enrollment_site_id                    = "-1"
+  keep_existing_site_membership         = false
+  keep_existing_location_information    = false
+  require_authentication                = false
+  authentication_prompt                 = "Sign in with your Google Workspace credentials"
+  prevent_activation_lock               = true
+  enable_device_based_activation_lock   = false
+  device_enrollment_program_instance_id = "1"
+  auto_advance_setup                    = true
+  language                              = ""
+  region                                = ""
+  enrollment_customization_id           = "0"
+  install_profiles_during_setup         = true
+  prestage_installed_profile_ids = [
+    jamfpro_macos_configuration_profile_plist.jamf_connect_license.id,
+    jamfpro_macos_configuration_profile_plist.jamf_connect_login.id,
+    jamfpro_macos_configuration_profile_plist.jamfconnect_privilege_elevation.id,
+    jamfpro_macos_configuration_profile_plist.jamf_connect_menubar.id
+  ]
 
   custom_package_ids                        = ["24"]
   custom_package_distribution_point_id      = "-2"
@@ -561,36 +736,34 @@ prestage_installed_profile_ids = [
   prestage_minimum_os_target_version_type   = "NO_ENFORCEMENT"
   site_id                                   = "-1"
 
-  # Required: Skip Setup Items Block - ALL fields must be specified
   skip_setup_items {
-    biometric                     = true
-    terms_of_address              = true
-    file_vault                    = true
-    icloud_diagnostics            = true
-    diagnostics                   = true
-    accessibility                 = true
-    apple_id                      = true
-    screen_time                   = true
-    siri                          = true
-    display_tone                  = true
-    restore                       = true
-    appearance                    = true
-    privacy                       = true
-    payment                       = true
-    registration                  = true
-    tos                           = true
-    icloud_storage                = true
-    location                      = false
-    intelligence                  = true
-    enable_lockdown_mode          = true
-    welcome                       = true
-    wallpaper                     = true
-    os_showcase                   = true
-    software_update               = true
-    additional_privacy_settings   = true
+    biometric                   = true
+    terms_of_address            = true
+    file_vault                  = true
+    icloud_diagnostics          = true
+    diagnostics                 = true
+    accessibility               = true
+    apple_id                    = true
+    screen_time                 = true
+    siri                        = true
+    display_tone                = true
+    restore                     = true
+    appearance                  = true
+    privacy                     = true
+    payment                     = true
+    registration                = true
+    tos                         = true
+    icloud_storage              = true
+    location                    = false
+    intelligence                = true
+    enable_lockdown_mode        = true
+    welcome                     = true
+    wallpaper                   = true
+    os_showcase                 = true
+    software_update             = true
+    additional_privacy_settings = true
   }
 
-  # Required: Location Information Block
   location_information {
     username      = ""
     realname      = ""
@@ -602,7 +775,6 @@ prestage_installed_profile_ids = [
     building_id   = "-1"
   }
 
-  # Required: Purchasing Information Block
   purchasing_information {
     leased             = false
     purchased          = true
@@ -618,22 +790,22 @@ prestage_installed_profile_ids = [
     warranty_date      = "1970-01-01"
   }
 
-  # Required: Account Settings Block
-account_settings {
-  payload_configured                           = true
-  local_admin_account_enabled                  = true
-  admin_username                               = "__localadmin"
-  admin_password                               = "Kyle-Admin-73-="
-  hidden_admin_account                         = true
-  local_user_managed                           = false
-  user_account_type                            = "SKIP"
-  prefill_primary_account_info_feature_enabled = false
-  prefill_type                                 = "UNKNOWN"
-  prefill_account_full_name                    = "Local JAMFAdmin"
-  prefill_account_user_name                    = "__localadmin"
-  prevent_prefill_info_from_modification       = false
+  account_settings {
+    payload_configured                           = true
+    local_admin_account_enabled                  = true
+    admin_username                               = "__localadmin"
+    admin_password                               = "Kyle-Admin-73-="
+    hidden_admin_account                         = true
+    local_user_managed                           = false
+    user_account_type                            = "SKIP"
+    prefill_primary_account_info_feature_enabled = false
+    prefill_type                                 = "UNKNOWN"
+    prefill_account_full_name                    = "Local JAMFAdmin"
+    prefill_account_user_name                    = "__localadmin"
+    prevent_prefill_info_from_modification       = false
+  }
 }
-}
+
 # =============================================================================
 # MODULES - Baseline Infrastructure
 # =============================================================================
@@ -641,11 +813,8 @@ account_settings {
 module "categories" {
   source = "./modules/baseline-categories"
 
-  # Only create categories that DON'T already exist in your tenant
-  # Remove any that already exist (like Security)
   categories = {
     "identity"      = { name = "Identity", priority = 1 }
-    # "security"    = { name = "Security", priority = 2 }  # Already exists - skip
     "productivity"  = { name = "Productivity", priority = 3 }
     "utilities"     = { name = "Utilities", priority = 4 }
     "communication" = { name = "Communication", priority = 5 }
@@ -656,7 +825,6 @@ module "categories" {
 module "smart_groups" {
   source = "./modules/baseline-smart-groups"
 
-  # Simplified groups without dependency on non-existent groups
   smart_groups = {
     "macos-sequoia" = {
       name = "macOS Sequoia (15.x)"

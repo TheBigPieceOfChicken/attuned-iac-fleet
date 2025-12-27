@@ -1,19 +1,34 @@
 #!/bin/bash
-LoggedInUser=$( scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }' )
-LoggedInUserHome="/Users/$LoggedInUser"
 
-if [ -e /usr/local/bin/dockutil ]; then
-    /usr/local/bin/dockutil --remove all --no-restart "$LoggedInUserHome"
-    /usr/local/bin/dockutil --add '/Applications/Google Chrome.app' --no-restart "$LoggedInUserHome"
-    /usr/local/bin/dockutil --add '/Applications/Slack.app' --no-restart "$LoggedInUserHome"
-    /usr/local/bin/dockutil --add '/Applications/zoom.us.app' --no-restart "$LoggedInUserHome"
-    # Add other apps as needed
-    /usr/local/bin/dockutil --add '/Applications' --view grid --display folder --no-restart "$LoggedInUserHome"
-    /usr/local/bin/dockutil --add '~/Downloads' --view fan --display stack --no-restart "$LoggedInUserHome"
-    
-    # Marker file for tracking
-    touch "$LoggedInUserHome/Library/Preferences/com.attuned.docksetup.plist"
+currentUser=$( echo "show State:/Users/ConsoleUser" | scutil | awk '/Name :/ { print $3 }' )
+
+if [ "$currentUser" = "loginwindow" ] || [ -z "$currentUser" ]; then
+    echo "No user logged in, exiting"
+    exit 0
 fi
 
-killall -KILL Dock
+if [ ! -e /usr/local/bin/dockutil ]; then
+    echo "dockutil not installed, exiting"
+    exit 0
+fi
+
+# Check if key apps are installed
+if [ ! -d "/Applications/Google Chrome.app" ] || [ ! -d "/Applications/Slack.app" ]; then
+    echo "Required apps not yet installed, exiting"
+    exit 0
+fi
+
+DOCKUTIL="/usr/local/bin/dockutil"
+
+$DOCKUTIL --remove all --no-restart "$currentUser"
+$DOCKUTIL --add '/System/Applications/Launchpad.app' --position 1 --no-restart "$currentUser"
+$DOCKUTIL --add '/Applications/Google Chrome.app' --position 2 --no-restart "$currentUser"
+$DOCKUTIL --add '/Applications/Slack.app' --position 3 --no-restart "$currentUser"
+$DOCKUTIL --add '/Applications/zoom.us.app' --position 4 --no-restart "$currentUser"
+$DOCKUTIL --add '/Applications/Google Drive.app' --position 5 --no-restart "$currentUser"
+$DOCKUTIL --add '/Applications/Keeper Password Manager.app' --position 6 --no-restart "$currentUser"
+$DOCKUTIL --add '/System/Applications/System Settings.app' --position 7 --no-restart "$currentUser"
+
+killall Dock
+echo "Dock configured successfully for $currentUser"
 exit 0
