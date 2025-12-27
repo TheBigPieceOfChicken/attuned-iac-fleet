@@ -428,48 +428,6 @@ resource "jamfpro_policy" "sec_enforce_password" {
   }
 }
 
-# ============================================================================
-# DOCK CUSTOMIZATION
-# ============================================================================
-
-# Script: Configure Dock
-resource "jamfpro_script" "configure_dock" {
-  name            = "Configure-Dock"
-  priority        = "AFTER"
-  info            = "Configures dock - removes default apps, adds Chrome"
-  script_contents = file("${path.root}/scripts/configure-dock.sh")
-}
-
-# Policy: Run dock config at enrollment
-resource "jamfpro_policy" "configure_dock" {
-  name                        = "Configure Dock - Enrollment"
-  enabled                     = true
-  trigger_checkin             = false
-  trigger_enrollment_complete = true
-  frequency                   = "Once per computer"
-  category_id                 = -1
-
-  scope {
-    all_computers = true
-    all_jss_users = false
-  }
-
-  payloads {
-    packages {
-      distribution_point = "cloud"
-      package {
-        id     = "27"
-        action = "Install"
-      }
-    }
-
-    scripts {
-      id       = jamfpro_script.configure_dock.id
-      priority = "After"
-    }
-  }
-}
-
 
 # ================================================================================
 # Self Service+ Settings
