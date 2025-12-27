@@ -561,6 +561,11 @@ resource "jamfpro_policy" "install_dockutil" {
 # DOCK CONFIGURATION
 # ============================================================================
 
+import {
+  to = jamfpro_script.configure_dock
+  id = "30"
+}
+
 resource "jamfpro_script" "configure_dock" {
   name            = "Configure-Dock"
   priority        = "AFTER"
